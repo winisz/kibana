@@ -18,28 +18,19 @@
 // under the License.
 
 pipeline {
-  // agent { dockerfile true } // bootstraps via Dockerfile
-  // agent { label 'linux && immutable' }
   agent {
     dockerfile {
-        label "docker"
+        label "docker && linux && immutable"
     }
   }
   stages {
-    stage('Implicit build and run simple yarn script') {
-        steps {
-          sh 'kbn'
-        }
+    stage('Docker Build and Run -- Simple') {
+      steps{
+        sh "docker build -t kibana-ci-${env.BUILD_ID}:base ."
+        sh "docker run --rm kibana-ci-${env.BUILD_ID}:base kbn"
+      }
     }
   }
-
-  // stages {
-    // stage('Docker Build and Run an easy yarn script') {
-    //   steps{
-    //     sh 'docker build -t kibana-ci:base .'
-    //     sh 'docker run --rm kibana-ci:base kbn'
-    //   }
-    // }
     // stage('Docker Build and Run an easy yarn script') {
     //   steps {
     //     script {
