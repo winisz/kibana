@@ -21,15 +21,21 @@ pipeline {
   // agent { dockerfile true } // bootstraps via Dockerfile
   agent { label 'linux && immutable' }
   stages {
-    // stage('Lint') {
-    //     steps {
-    //       sh 'lint'
-    //     }
+    // stage('Docker Build and Run an easy yarn script') {
+    //   steps{
+    //     sh 'docker build -t kibana-ci:base .'
+    //     sh 'docker run --rm kibana-ci:base kbn'
+    //   }
     // }
     stage('Docker Build and Run an easy yarn script') {
-      steps{
-        sh 'docker build -t kibana-ci:base .'
-        sh 'docker run --rm kibana-ci:base kbn'
+      steps {
+        script {
+          def baseImage = docker.build("kibana-ci:${env.BUILD_ID}")
+
+          baseImage.inside {
+              sh 'kbn'
+          }
+        }
       }
     }
   }
