@@ -29,7 +29,7 @@ pipeline {
     stage('Docker Build and Run an easy yarn script') {
       steps{
         sh 'docker build -t kibana-ci:base .'
-        sh 'docker run --rm -it kibana-ci:base kbn'
+        sh 'docker run --rm kibana-ci:base kbn'
       }
     }
   }
