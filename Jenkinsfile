@@ -19,24 +19,37 @@
 
 pipeline {
   // agent { dockerfile true } // bootstraps via Dockerfile
-  agent { label 'linux && immutable' }
+  // agent { label 'linux && immutable' }
+  agent {
+    dockerfile {
+        label "docker"
+    }
+  }
   stages {
+    stage('Implicit build and run simple yarn script') {
+        steps {
+          sh 'kbn'
+        }
+    }
+  }
+
+  // stages {
     // stage('Docker Build and Run an easy yarn script') {
     //   steps{
     //     sh 'docker build -t kibana-ci:base .'
     //     sh 'docker run --rm kibana-ci:base kbn'
     //   }
     // }
-    stage('Docker Build and Run an easy yarn script') {
-      steps {
-        script {
-          def baseImage = docker.build("kibana-ci:${env.BUILD_ID}")
+    // stage('Docker Build and Run an easy yarn script') {
+    //   steps {
+    //     script {
+    //       def baseImage = docker.build("kibana-ci:${env.BUILD_ID}")
 
-          baseImage.inside {
-              sh 'kbn'
-          }
-        }
-      }
-    }
-  }
+    //       baseImage.inside {
+    //           sh 'kbn'
+    //       }
+    //     }
+    //   }
+    // }
+  // }
 }
