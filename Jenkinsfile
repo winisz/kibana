@@ -18,14 +18,19 @@
 // under the License.
 
 pipeline {
-  agent { dockerfile true } // bootstraps via Dockerfile
+  // agent { dockerfile true } // bootstraps via Dockerfile
+  agent { label 'linux && immutable' }
   stages {
-    stage('Lint') {
-        steps {
-          sh 'lint'
-          sh 'lint:es'
-          sh 'lint:sass'
-        }
+    // stage('Lint') {
+    //     steps {
+    //       sh 'lint'
+    //     }
+    // }
+    stage('Docker Build and Run an easy yarn script') {
+      steps{
+        sh 'docker build -t kibana-ci:base .'
+        sh 'docker run --rm -it kibana-ci:base kbn'
+      }
     }
   }
 }
