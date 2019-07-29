@@ -18,14 +18,13 @@
 // under the License.
 
 pipeline {
-  environment {
-    HOME = "${JENKINS_HOME}"  // /var/lib/jenkins
-  }
   agent { dockerfile true } // bootstraps via Dockerfile
   stages {
-    stage('Jest Tests') {
+    stage('Lint') {
         steps {
-          sh 'test:jest'
+          sh 'lint'
+          sh 'lint:es'
+          sh 'lint:sass'
         }
     }
   }
