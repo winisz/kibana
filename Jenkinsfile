@@ -20,10 +20,12 @@
 pipeline {
   agent { label 'linux && immutable' }
   stages {
-    stage('Docker Build and Run -- Simple') {
+    stage('docker buid-test-tag-push') {
       steps{
         sh "docker build -t kibana-ci-${env.BUILD_ID}:base ."
         sh "docker run --rm kibana-ci-${env.BUILD_ID}:base kbn"
+        sh "docker tag kibana-ci-${env.BUILD_ID}:base push.docker.elastic.co/kibana/kibana-ci-${env.BUILD_ID}:base"
+        sh "docker push push.docker.elastic.co/kibana/kibana-ci-${env.BUILD_ID}:base"
       }
     }
     // stage('Docker Build and Run an easy yarn script') {
