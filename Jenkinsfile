@@ -20,26 +20,26 @@
 pipeline {
   agent {
     dockerfile {
-        label "docker && linux && immutable"
+        label "linux && immutable"
     }
   }
   stages {
-    // stage('Docker Build and Run -- Simple') {
-    //   steps{
-    //     sh "docker build -t kibana-ci-${env.BUILD_ID}:base ."
-    //     sh "docker run --rm kibana-ci-${env.BUILD_ID}:base kbn"
-    //   }
-    // }
-    stage('Docker Build and Run an easy yarn script') {
-      steps {
-        script {
-          def baseImage = docker.build("kibana-ci:${env.BUILD_ID}")
-
-          baseImage.inside {
-              sh 'kbn'
-          }
-        }
+    stage('Docker Build and Run -- Simple') {
+      steps{
+        sh "docker build -t kibana-ci-${env.BUILD_ID}:base ."
+        sh "docker run --rm kibana-ci-${env.BUILD_ID}:base kbn"
       }
     }
+    // stage('Docker Build and Run an easy yarn script') {
+    //   steps {
+    //     script {
+    //       def baseImage = docker.build("kibana-ci:${env.BUILD_ID}")
+
+    //       baseImage.inside {
+    //           sh 'kbn'
+    //       }
+    //     }
+    //   }
+    // }
   }
 }
