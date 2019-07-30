@@ -18,11 +18,7 @@
 // under the License.
 
 pipeline {
-  agent {
-    dockerfile {
-        label "linux && immutable"
-    }
-  }
+  agent { label 'linux && immutable' }
   stages {
     stage('Docker Build and Run -- Simple') {
       steps{
