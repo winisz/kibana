@@ -29,6 +29,17 @@ enum ErrorCode {
 /** @public */
 export interface ElasticsearchError extends Boom {
   [code]?: string;
+
+  output: {
+    statusCode: number;
+    payload: {
+      statusCode: number;
+      error: string;
+      message: string;
+      [key: string]: any;
+    };
+    headers: Record<string, string | string[] | undefined>;
+  };
 }
 
 function isElasticsearchError(error: any): error is ElasticsearchError {
