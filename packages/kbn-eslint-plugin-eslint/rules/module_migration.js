@@ -122,6 +122,11 @@ module.exports = {
           checkModuleNameNode(context, mappings, node.arguments[0]);
         }
       },
+      TSModuleDeclaration(node) {
+        if (node.id.type === 'Literal') {
+          checkModuleNameNode(context, mappings, node.id);
+        }
+      },
     };
   },
 };
