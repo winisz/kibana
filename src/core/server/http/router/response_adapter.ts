@@ -55,7 +55,7 @@ export class HapiResponseAdapter {
   }
 
   public toInternalError() {
-    const error = new Boom('', {
+    const error = new Boom.Boom('', {
       statusCode: 500,
     });
 
@@ -118,7 +118,7 @@ export class HapiResponseAdapter {
   private toError(kibanaResponse: KibanaResponse<ResponseError>) {
     const { payload } = kibanaResponse;
     // we use for BWC with Boom payload for error responses - {error: string, message: string, statusCode: string}
-    const error = new Boom('', {
+    const error = new Boom.Boom('', {
       statusCode: kibanaResponse.status,
     });
 

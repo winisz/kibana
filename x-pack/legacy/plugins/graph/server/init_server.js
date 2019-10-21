@@ -4,8 +4,6 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import Boom from '@hapi/boom';
-
 import { mirrorPluginStatus } from '../../../server/lib/mirror_plugin_status';
 import { checkLicense } from './lib';
 import { graphExploreRoute, searchProxyRoute } from './routes';

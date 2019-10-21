@@ -19,7 +19,7 @@
 
 import { ObjectType, TypeOf, Type } from '@kbn/config-schema';
 import { Request, ResponseObject, ResponseToolkit } from '@hapi/hapi';
-import Boom from '@hapi/boom';
+import { Boom } from '@hapi/boom';
 
 import { Logger } from '../../logging';
 import { KibanaRequest } from './request';

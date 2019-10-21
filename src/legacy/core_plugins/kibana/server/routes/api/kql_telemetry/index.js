@@ -18,7 +18,7 @@
  */
 
 import Joi from '@hapi/joi';
-import Boom from '@hapi/boom';
+import { Boom } from '@hapi/boom';
 
 export function registerKqlTelemetryApi(server) {
   server.route({

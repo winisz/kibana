@@ -27,7 +27,7 @@ enum ErrorCode {
 }
 
 /** @public */
-export interface ElasticsearchError extends Boom {
+export interface ElasticsearchError extends Boom.Boom {
   [code]?: string;
 
   output: {

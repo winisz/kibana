@@ -5,7 +5,6 @@
  */
 
 import Joi from '@hapi/joi';
-import Boom from '@hapi/boom';
 
 import {
   verifyApiAccessPre,

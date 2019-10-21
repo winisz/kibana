@@ -32,7 +32,7 @@ export const createRouter = (server, pluginId, apiBasePath = '', config) => {
       };
       return await handler(request, callWithRequest, h);
     } catch (err) {
-      if (err instanceof Boom) {
+      if (Boom.isBoom(err)) {
         throw err;
       }
 

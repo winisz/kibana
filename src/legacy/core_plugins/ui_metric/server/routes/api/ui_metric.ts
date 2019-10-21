@@ -18,7 +18,7 @@
  */
 
 import Joi from '@hapi/joi';
-import Boom from '@hapi/boom';
+import { Boom } from '@hapi/boom';
 import { Report } from '@kbn/analytics';
 import { Server } from '@hapi/hapi';
 
