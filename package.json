@@ -305,7 +305,6 @@
     "@types/glob": "^7.1.1",
     "@types/globby": "^8.0.0",
     "@types/graphql": "^0.13.2",
-    "@types/hapi__boom": "^7.4.1",
     "@types/hapi__cookie": "^10.1.0",
     "@types/hapi__hapi": "^18.2.5",
     "@types/hapi__hoek": "^6.2.0",

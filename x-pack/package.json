@@ -64,7 +64,6 @@
     "@types/glob": "^7.1.1",
     "@types/graphql": "^0.13.2",
     "@types/gulp": "^4.0.6",
-    "@types/hapi__boom": "^7.4.1",
     "@types/hapi__joi": "^15.0.4",
     "@types/hapi__wreck": "^15.0.1",
     "@types/history": "^4.7.3",
