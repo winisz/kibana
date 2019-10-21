@@ -18,7 +18,7 @@
  */
 
 import { accessSync, constants, readFileSync, statSync } from 'fs';
-import { Server } from 'hapi';
+import { Server } from '@hapi/hapi';
 import { safeLoad } from 'js-yaml';
 import { dirname, join } from 'path';
 

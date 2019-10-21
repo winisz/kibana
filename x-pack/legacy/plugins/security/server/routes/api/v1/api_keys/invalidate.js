@@ -4,7 +4,7 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import Joi from 'joi';
+import Joi from '@hapi/joi';
 import { wrapError } from '../../../../../../../../plugins/security/server';
 import { INTERNAL_API_BASE_PATH } from  '../../../../../common/constants';
 

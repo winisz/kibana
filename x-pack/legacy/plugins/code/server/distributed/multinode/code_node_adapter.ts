@@ -6,7 +6,7 @@
 
 import { KibanaRequest, KibanaResponseFactory, RequestHandlerContext } from 'src/core/server';
 import util from 'util';
-import Boom from 'boom';
+import Boom from '@hapi/boom';
 import {
   DEFAULT_SERVICE_OPTION,
   ServiceHandlerAdapter,

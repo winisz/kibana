@@ -4,7 +4,7 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import { ServerInjectOptions } from 'hapi';
+import { ServerInjectOptions } from '@hapi/hapi';
 import { ActionResult } from '../../../../../../actions/server/types';
 
 export const getUpdateRequest = (): ServerInjectOptions => ({

@@ -6,7 +6,7 @@
 
 import Wreck from '@hapi/wreck';
 import util from 'util';
-import Boom from 'boom';
+import Boom from '@hapi/boom';
 import { KibanaRequest } from 'src/core/server';
 import * as http from 'http';
 import {

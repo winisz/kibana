@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import { Server } from 'hapi';
+import { Server } from '@hapi/hapi';
 import { createCSPRuleString, DEFAULT_CSP_RULES } from '../../../../../server/csp';
 
 export function createCspCollector(server: Server) {

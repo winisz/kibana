@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import * as Joi from 'joi';
+import * as Joi from '@hapi/joi';
 import { ByteSizeValue } from '../src/byte_size_value';
 
 declare module 'joi' {

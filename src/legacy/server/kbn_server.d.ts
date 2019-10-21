@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import { ResponseObject, Server } from 'hapi';
+import { ResponseObject, Server } from '@hapi/hapi';
 import { UnwrapPromise } from '@kbn/utility-types';
 
 import { SavedObjectsClientProviderOptions, CoreSetup } from 'src/core/server';

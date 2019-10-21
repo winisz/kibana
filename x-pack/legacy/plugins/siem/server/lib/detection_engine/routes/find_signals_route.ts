@@ -4,8 +4,8 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import Hapi from 'hapi';
-import Joi from 'joi';
+import Hapi from '@hapi/hapi';
+import Joi from '@hapi/joi';
 import { isFunction } from 'lodash/fp';
 import { findSignals } from '../alerts/find_signals';
 import { FindSignalsRequest } from '../alerts/types';

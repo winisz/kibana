@@ -5,7 +5,7 @@
  */
 
 import { KibanaRequest } from 'src/core/server';
-import Boom from 'boom';
+import Boom from '@hapi/boom';
 import { Endpoint, ResourceLocator } from '../resource_locator';
 import { ClusterService } from './cluster_service';
 import { LocalEndpoint } from '../local_endpoint';

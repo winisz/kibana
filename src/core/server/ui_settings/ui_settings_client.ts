@@ -17,7 +17,7 @@
  * under the License.
  */
 import { defaultsDeep } from 'lodash';
-import Boom from 'boom';
+import Boom from '@hapi/boom';
 
 import { SavedObjectsClientContract, SavedObjectAttribute } from '../saved_objects/types';
 import { Logger } from '../logging';

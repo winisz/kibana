@@ -5,7 +5,7 @@
  */
 
 import { SavedObjectsClientContract } from 'src/core/server';
-import Boom from 'boom';
+import Boom from '@hapi/boom';
 import { SAVED_OBJ_REPO } from '../../common/constants';
 
 export interface RepositoryReferenceHelper {

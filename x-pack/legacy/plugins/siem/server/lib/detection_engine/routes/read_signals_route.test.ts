@@ -12,7 +12,7 @@ import {
 } from './__mocks__/_mock_server';
 
 import { readSignalsRoute } from './read_signals_route';
-import { ServerInjectOptions } from 'hapi';
+import { ServerInjectOptions } from '@hapi/hapi';
 import { getFindResult, getResult, getReadRequest } from './__mocks__/request_responses';
 
 describe('read_signals', () => {

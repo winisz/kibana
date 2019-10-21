@@ -6,7 +6,7 @@
 
 import { KibanaRequest, KibanaResponseFactory, RequestHandlerContext } from 'src/core/server';
 import util from 'util';
-import Boom from 'boom';
+import Boom from '@hapi/boom';
 import { ServiceHandlerAdapter, ServiceRegisterOptions } from '../service_handler_adapter';
 import { ResourceLocator } from '../resource_locator';
 import {

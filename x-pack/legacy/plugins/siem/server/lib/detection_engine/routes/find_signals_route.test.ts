@@ -12,7 +12,7 @@ import {
 } from './__mocks__/_mock_server';
 
 import { findSignalsRoute } from './find_signals_route';
-import { ServerInjectOptions } from 'hapi';
+import { ServerInjectOptions } from '@hapi/hapi';
 import { getFindResult, getResult, getFindRequest } from './__mocks__/request_responses';
 
 describe('find_signals', () => {

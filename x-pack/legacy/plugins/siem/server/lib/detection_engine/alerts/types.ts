@@ -6,7 +6,7 @@
 
 import { get } from 'lodash/fp';
 
-import Hapi from 'hapi';
+import Hapi from '@hapi/hapi';
 import { SIGNALS_ID } from '../../../../common/constants';
 import {
   Alert,

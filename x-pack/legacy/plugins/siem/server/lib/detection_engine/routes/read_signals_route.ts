@@ -4,7 +4,7 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import Hapi from 'hapi';
+import Hapi from '@hapi/hapi';
 import { isFunction } from 'lodash/fp';
 
 import { readSignals } from '../alerts/read_signals';

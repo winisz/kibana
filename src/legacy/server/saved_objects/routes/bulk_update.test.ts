@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import Hapi from 'hapi';
+import Hapi from '@hapi/hapi';
 import { createMockServer } from './_mock_server';
 import { createBulkUpdateRoute } from './bulk_update';
 import { SavedObjectsClientMock } from '../../../../core/server/mocks';

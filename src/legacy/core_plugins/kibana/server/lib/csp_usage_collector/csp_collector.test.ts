@@ -18,7 +18,7 @@
  */
 
 import sinon from 'sinon';
-import { Server } from 'hapi';
+import { Server } from '@hapi/hapi';
 import { DEFAULT_CSP_RULES } from '../../../../../server/csp';
 import { createCspCollector } from './csp_collector';
 

@@ -4,7 +4,7 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import Boom from 'boom';
+import Boom from '@hapi/boom';
 import { KibanaConfig } from 'src/legacy/server/kbn_server';
 import { CoreSetup, SavedObjectsLegacyService } from 'src/core/server';
 import { schema } from '@kbn/config-schema';

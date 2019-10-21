@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import Joi from 'joi';
-import { boomify } from 'boom';
+import Joi from '@hapi/joi';
+import { boomify } from '@hapi/boom';
 import { CoreSetup } from 'src/core/server';
 import { encryptTelemetry } from '../collectors';
 import { telemetryCollectionManager } from '../collection_manager';

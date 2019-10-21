@@ -12,7 +12,7 @@ import {
 } from './__mocks__/_mock_server';
 
 import { deleteSignalsRoute } from './delete_signals_route';
-import { ServerInjectOptions } from 'hapi';
+import { ServerInjectOptions } from '@hapi/hapi';
 import { getFindResult, getResult, getDeleteRequest } from './__mocks__/request_responses';
 
 describe('delete_signals', () => {
