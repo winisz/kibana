@@ -16,4 +16,5 @@ export interface ElasticsearchError extends Boom
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [\[code\]](./kibana-plugin-server.elasticsearcherror._code_.md) | <code>string</code> |  |
+|  [output](./kibana-plugin-server.elasticsearcherror.output.md) | <code>{</code><br/><code>        statusCode: number;</code><br/><code>        payload: {</code><br/><code>            statusCode: number;</code><br/><code>            error: string;</code><br/><code>            message: string;</code><br/><code>            [key: string]: any;</code><br/><code>        };</code><br/><code>        headers: Record&lt;string, string &#124; string[] &#124; undefined&gt;;</code><br/><code>    }</code> |  |
 
