@@ -8,7 +8,7 @@
 <b>Signature:</b>
 
 ```typescript
-export interface ElasticsearchError extends Boom 
+export interface ElasticsearchError extends Boom.Boom 
 ```
 
 ## Properties

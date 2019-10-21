@@ -576,7 +576,7 @@ export type ElasticsearchClientConfig = Pick<ConfigOptions, 'keepAlive' | 'log' 
 };
 
 // @public (undocumented)
-export interface ElasticsearchError extends Boom {
+export interface ElasticsearchError extends Boom.Boom {
     // (undocumented)
     [code]?: string;
     // (undocumented)
