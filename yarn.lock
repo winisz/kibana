@@ -1549,6 +1549,13 @@
   dependencies:
     "@hapi/hoek" "6.x.x"
 
+"@hapi/boom@8.x.x", "@hapi/boom@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@hapi/boom/-/boom-8.0.1.tgz#13f1f2f2a3abfb0787c79e35e238c8aff6aa1661"
+  integrity sha512-SnBM2GzEYEA6AGFKXBqNLWXR3uNBui0bkmklYXX1gYtevVhDTy2uakwkSauxvIWMtlANGRhzChYg95If3FWCwA==
+  dependencies:
+    "@hapi/hoek" "8.x.x"
+
 "@hapi/boom@^7.4.10":
   version "7.4.10"
   resolved "https://registry.yarnpkg.com/@hapi/boom/-/boom-7.4.10.tgz#fae360a8f6a52fbb5bfbe179982d74351ee1df1d"
@@ -1680,10 +1687,10 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-6.2.1.tgz#d3a66329159af879bfdf0b0cff2229c43c5a3451"
   integrity sha512-+ryw4GU9pjr1uT6lBuErHJg3NYqzwJTvZ75nKuJijEzpd00Uqi6oiawTGDDf5Hl0zWmI7qHfOtaqB0kpQZJQzA==
 
-"@hapi/hoek@8.x.x", "@hapi/hoek@^8.2.4":
-  version "8.2.4"
-  resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-8.2.4.tgz#684a14f4ca35d46f44abc87dfc696e5e4fe8a020"
-  integrity sha512-Ze5SDNt325yZvNO7s5C4fXDscjJ6dcqLFXJQ/M7dZRQCewuDj2iDUuBi6jLQt+APbW9RjjVEvLr35FXuOEqjow==
+"@hapi/hoek@8.x.x", "@hapi/hoek@^8.3.2":
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-8.3.2.tgz#91e7188edebc5d876f0b91a860f555ff06f0782b"
+  integrity sha512-NP5SG4bzix+EtSMtcudp8TvI0lB46mXNo8uFpTDw6tqxGx4z5yx+giIunEFA0Z7oUO4DuWrOJV9xqR2tJVEdyA==
 
 "@hapi/inert@^5.2.2":
   version "5.2.2"
@@ -1831,12 +1838,21 @@
     "@hapi/hoek" "8.x.x"
     "@hapi/joi" "16.x.x"
 
-"@hapi/wreck@15.x.x", "@hapi/wreck@^15.1.0":
+"@hapi/wreck@15.x.x":
   version "15.1.0"
   resolved "https://registry.yarnpkg.com/@hapi/wreck/-/wreck-15.1.0.tgz#7917cd25950ce9b023f7fd2bea6e2ef72c71e59d"
   integrity sha512-tQczYRTTeYBmvhsek/D49En/5khcShaBEmzrAaDjMrFXKJRuF8xA8+tlq1ETLBFwGd6Do6g2OC74rt11kzawzg==
   dependencies:
     "@hapi/boom" "7.x.x"
+    "@hapi/bourne" "1.x.x"
+    "@hapi/hoek" "8.x.x"
+
+"@hapi/wreck@^16.0.1":
+  version "16.0.1"
+  resolved "https://registry.yarnpkg.com/@hapi/wreck/-/wreck-16.0.1.tgz#95cd013b8166db17be88837d6d0a880d8e7cd6b3"
+  integrity sha512-fL6IwZ5nk1jBMLBPugt72u23rw8KnnyupLor7TZihgvAXTulxJprUe9YiCLuGbKsEBh2qDo31ixvLCSaxC2+xQ==
+  dependencies:
+    "@hapi/boom" "8.x.x"
     "@hapi/bourne" "1.x.x"
     "@hapi/hoek" "8.x.x"
 
