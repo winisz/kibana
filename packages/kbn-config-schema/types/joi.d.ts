@@ -19,7 +19,7 @@
 import * as Joi from '@hapi/joi';
 import { ByteSizeValue } from '../src/byte_size_value';
 
-declare module 'joi' {
+declare module '@hapi/joi' {
   interface BytesSchema extends AnySchema {
     min(limit: number | string | ByteSizeValue): this;
     max(limit: number | string | ByteSizeValue): this;
