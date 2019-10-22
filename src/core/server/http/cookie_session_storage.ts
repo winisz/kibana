@@ -104,7 +104,7 @@ export async function createCookieSessionStorageFactory<T>(
     cookie: {
       name: cookieOptions.name,
       password: cookieOptions.encryptionKey,
-      path: basePath,
+      path: basePath || '/',
       clearInvalid: true,
       isSecure: cookieOptions.isSecure,
       isHttpOnly: true,
