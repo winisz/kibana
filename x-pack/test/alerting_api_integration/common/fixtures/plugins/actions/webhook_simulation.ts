@@ -21,20 +21,22 @@ export async function initPlugin(server: Hapi.Server, path: string) {
   ) {
     const scheme = {
       async authenticate(request: Hapi.Request, h: Hapi.ResponseToolkit) {
-        const credentials = pipe(
-          fromNullable(request.headers.authorization),
-          map(authorization => authorization.split(/\s+/)),
-          filter(parts => parts.length > 1),
-          map(parts => Buffer.from(parts[1], 'base64').toString()),
-          filter(credentialsPart => credentialsPart.indexOf(':') !== -1),
-          map(credentialsPart => {
-            const [username, password] = credentialsPart.split(':');
-            return { username, password };
-          }),
-          getOrElse(constant({ username: '', password: '' }))
-        );
-
-        return h.authenticated({ credentials });
+        return h.authenticated({
+          credentials: {
+            user: pipe(
+              fromNullable(request.headers.authorization),
+              map(authorization => authorization.split(/\s+/)),
+              filter(parts => parts.length > 1),
+              map(parts => Buffer.from(parts[1], 'base64').toString()),
+              filter(credentialsPart => credentialsPart.indexOf(':') !== -1),
+              map(credentialsPart => {
+                const [username, password] = credentialsPart.split(':');
+                return { username, password };
+              }),
+              getOrElse(constant({ username: '', password: '' }))
+            ),
+          },
+        });
       },
     };
 
@@ -84,7 +86,7 @@ function validateAuthentication(request: WebhookRequest, h: any) {
     auth: { credentials },
   } = request;
   try {
-    expect(credentials).to.eql({
+    expect(credentials.user).to.eql({
       username: 'elastic',
       password: 'changeme',
     });
