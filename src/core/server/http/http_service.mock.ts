@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import { Server } from '@hapi/hapi';
 import { InternalHttpServiceSetup } from './types';
 import { HttpService } from './http_service';
 import { OnPreAuthToolkit } from './lifecycle/on_pre_auth';
@@ -50,11 +49,11 @@ const createRouterMock = (): jest.Mocked<IRouter> => ({
 const createSetupContractMock = () => {
   const setupContract: ServiceSetupMockType = {
     // we can mock other hapi server methods when we need it
-    server: ({
+    server: {
       route: jest.fn(),
       start: jest.fn(),
       stop: jest.fn(),
-    } as unknown) as jest.MockedClass<Server>,
+    } as any,
     createCookieSessionStorageFactory: jest.fn(),
     registerOnPreAuth: jest.fn(),
     registerAuth: jest.fn(),
