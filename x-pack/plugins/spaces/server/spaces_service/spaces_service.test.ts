@@ -92,7 +92,7 @@ describe('SpacesService', () => {
       const spacesServiceSetup = await createService();
 
       const request: KibanaRequest = {
-        url: { path: '/app/kibana' },
+        url: { pathname: '/app/kibana' },
       } as KibanaRequest;
 
       expect(spacesServiceSetup.getSpaceId(request)).toEqual(DEFAULT_SPACE_ID);
@@ -102,7 +102,7 @@ describe('SpacesService', () => {
       const spacesServiceSetup = await createService();
 
       const request: KibanaRequest = {
-        url: { path: '/s/foo/app/kibana' },
+        url: { pathname: '/s/foo/app/kibana' },
       } as KibanaRequest;
 
       expect(spacesServiceSetup.getSpaceId(request)).toEqual('foo');
@@ -149,7 +149,7 @@ describe('SpacesService', () => {
       const spacesServiceSetup = await createService();
 
       const request: KibanaRequest = {
-        url: { path: '/app/kibana' },
+        url: { pathname: '/app/kibana' },
       } as KibanaRequest;
 
       expect(spacesServiceSetup.isInDefaultSpace(request)).toEqual(true);
@@ -159,7 +159,7 @@ describe('SpacesService', () => {
       const spacesServiceSetup = await createService();
 
       const request: KibanaRequest = {
-        url: { path: '/s/foo/app/kibana' },
+        url: { pathname: '/s/foo/app/kibana' },
       } as KibanaRequest;
 
       expect(spacesServiceSetup.isInDefaultSpace(request)).toEqual(false);
@@ -184,7 +184,7 @@ describe('SpacesService', () => {
     it('returns the default space when in the default space', async () => {
       const spacesServiceSetup = await createService();
       const request = {
-        url: { path: 'app/kibana' },
+        url: { pathname: 'app/kibana' },
       } as KibanaRequest;
 
       const activeSpace = await spacesServiceSetup.getActiveSpace(request);
@@ -199,7 +199,7 @@ describe('SpacesService', () => {
     it('returns the space for the current (non-default) space', async () => {
       const spacesServiceSetup = await createService();
       const request = {
-        url: { path: '/s/foo/app/kibana' },
+        url: { pathname: '/s/foo/app/kibana' },
       } as KibanaRequest;
 
       const activeSpace = await spacesServiceSetup.getActiveSpace(request);
@@ -213,7 +213,7 @@ describe('SpacesService', () => {
     it('propagates errors from the repository', async () => {
       const spacesServiceSetup = await createService();
       const request = {
-        url: { path: '/s/unknown-space/app/kibana' },
+        url: { pathname: '/s/unknown-space/app/kibana' },
       } as KibanaRequest;
 
       expect(spacesServiceSetup.getActiveSpace(request)).rejects.toThrowErrorMatchingInlineSnapshot(
