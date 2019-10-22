@@ -73,7 +73,11 @@ export const getIPFromBucket = (
   nodeType: InfraNodeType,
   bucket: InfraSnapshotNodeGroupByBucket
 ): string | null => {
-  const ip = get(bucket, `ip.hits.hits[0]._source.${IP_FIELDS[nodeType]}`, null);
+  const ip = get<string | string[] | null>(
+    bucket,
+    `ip.hits.hits[0]._source.${IP_FIELDS[nodeType]}`,
+    null
+  );
   if (Array.isArray(ip)) {
     return ip.find(isIPv4) || null;
   }
