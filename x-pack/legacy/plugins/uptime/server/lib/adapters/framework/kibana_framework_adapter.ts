@@ -7,6 +7,8 @@
 import { GraphQLSchema } from 'graphql';
 import { Request, ResponseToolkit } from '@hapi/hapi';
 import { runHttpQuery } from 'apollo-server-core';
+import { Headers } from 'apollo-server-env';
+
 import { UptimeCorePlugins, UptimeCoreSetup } from './adapter_types';
 import {
   UMBackendFrameworkAdapter,
@@ -57,6 +59,11 @@ export class UMKibanaBackendFrameworkAdapter implements UMBackendFrameworkAdapte
             method: method.toUpperCase(),
             options: options.graphQLOptions,
             query,
+            request: {
+              url: request.url.href,
+              method: request.method.toUpperCase(),
+              headers: new Headers(request.headers),
+            },
           });
 
           return h.response(graphQLResponse).type('application/json');

@@ -9,6 +9,7 @@ import Boom from '@hapi/boom';
 import { Plugin, Request, ResponseToolkit, RouteOptions, Server } from '@hapi/hapi';
 
 import { GraphQLOptions, runHttpQuery } from 'apollo-server-core';
+import { Headers } from 'apollo-server-env';
 
 export type HapiOptionsFunction = (req: Request) => GraphQLOptions | Promise<GraphQLOptions>;
 
@@ -39,6 +40,11 @@ export const graphqlHapi: Plugin<HapiGraphQLPluginOptions> = {
             method: request.method.toUpperCase(),
             options: options.graphqlOptions,
             query,
+            request: {
+              url: request.url.href,
+              method: request.method.toUpperCase(),
+              headers: new Headers(request.headers),
+            },
           });
 
           return h.response(gqlResponse).type('application/json');
