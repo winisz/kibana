@@ -123,7 +123,7 @@ export class OIDCAuthenticationProvider extends BaseAuthenticationProvider {
    * @param [state] Optional state object associated with the provider.
    */
   public async authenticate(request: KibanaRequest, state?: ProviderState | null) {
-    this.logger.debug(`Trying to authenticate user request to ${request.url.path}.`);
+    this.logger.debug(`Trying to authenticate user request to ${request.path}.`);
 
     // We should get rid of `Bearer` scheme support as soon as Reporting doesn't need it anymore.
     let {
@@ -256,7 +256,7 @@ export class OIDCAuthenticationProvider extends BaseAuthenticationProvider {
       this.logger.debug('Redirecting to OpenID Connect Provider with authentication request.');
       // If this is a third party initiated login, redirect to the base path
       const redirectAfterLogin = `${this.options.basePath.get(request)}${
-        'iss' in params ? '/' : request.url.path
+        'iss' in params ? '/' : request.path
       }`;
       return AuthenticationResult.redirectTo(
         redirect,
@@ -398,7 +398,7 @@ export class OIDCAuthenticationProvider extends BaseAuthenticationProvider {
    * @param state State value previously stored by the provider.
    */
   public async logout(request: KibanaRequest, state: ProviderState) {
-    this.logger.debug(`Trying to log user out via ${request.url.path}.`);
+    this.logger.debug(`Trying to log user out via ${request.path}.`);
 
     if (!state || !state.accessToken) {
       this.logger.debug('There is no elasticsearch access token to invalidate.');

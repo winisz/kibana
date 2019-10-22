@@ -67,7 +67,7 @@ const createService = async (serverBasePath: string = '') => {
     serverBasePath,
   } as HttpServiceSetup['basePath'];
   httpSetup.basePath.get = jest.fn().mockImplementation((request: KibanaRequest) => {
-    const spaceId = getSpaceIdFromPath(request.url.path);
+    const spaceId = getSpaceIdFromPath(request.url.pathname);
 
     if (spaceId !== DEFAULT_SPACE_ID) {
       return `/s/${spaceId}`;

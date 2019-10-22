@@ -26,18 +26,18 @@ export function initSpacesOnRequestInterceptor({ getLegacyAPI, http }: OnRequest
     toolkit: OnPreAuthToolkit
   ) {
     const serverBasePath = http.basePath.serverBasePath;
-    const path = request.url.pathname;
+    const pathname = request.url.pathname;
 
     // If navigating within the context of a space, then we store the Space's URL Context on the request,
     // and rewrite the request to not include the space identifier in the URL.
-    const spaceId = getSpaceIdFromPath(path, serverBasePath);
+    const spaceId = getSpaceIdFromPath(pathname, serverBasePath);
 
     if (spaceId !== DEFAULT_SPACE_ID) {
       const reqBasePath = `/s/${spaceId}`;
 
       http.basePath.set(request, reqBasePath);
 
-      const newLocation = (path && path.substr(reqBasePath.length)) || '/';
+      const newLocation = (pathname && pathname.substr(reqBasePath.length)) || '/';
 
       const newUrl = modifyUrl(format(request.url), parts => {
         return {

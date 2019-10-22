@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import { Url } from 'url';
+import { URL } from 'url';
 import { Request } from '@hapi/hapi';
 
 import { ObjectType, TypeOf } from '@kbn/config-schema';
@@ -111,7 +111,9 @@ export class KibanaRequest<Params = unknown, Query = unknown, Body = unknown> {
     return { query, params, body };
   }
   /** a WHATWG URL standard object. */
-  public readonly url: Url;
+  public readonly url: URL;
+  /** Full path of request, including query string */
+  public readonly path: string;
   /** matched route details */
   public readonly route: RecursiveReadonly<KibanaRequestRoute>;
   /**
@@ -136,6 +138,7 @@ export class KibanaRequest<Params = unknown, Query = unknown, Body = unknown> {
     private readonly withoutSecretHeaders: boolean
   ) {
     this.url = request.url;
+    this.path = `${request.url.pathname}${request.url.search}`;
     this.headers = deepFreeze({ ...request.headers });
 
     // prevent Symbol exposure via Object.getOwnPropertySymbols()

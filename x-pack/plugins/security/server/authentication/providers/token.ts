@@ -80,7 +80,7 @@ export class TokenAuthenticationProvider extends BaseAuthenticationProvider {
    * @param [state] Optional state object associated with the provider.
    */
   public async authenticate(request: KibanaRequest, state?: ProviderState | null) {
-    this.logger.debug(`Trying to authenticate user request to ${request.url.path}.`);
+    this.logger.debug(`Trying to authenticate user request to ${request.path}.`);
 
     // if there isn't a payload, try header-based token auth
     const {
@@ -118,7 +118,7 @@ export class TokenAuthenticationProvider extends BaseAuthenticationProvider {
    * @param state State value previously stored by the provider.
    */
   public async logout(request: KibanaRequest, state?: ProviderState | null) {
-    this.logger.debug(`Trying to log user out via ${request.url.path}.`);
+    this.logger.debug(`Trying to log user out via ${request.path}.`);
 
     if (!state) {
       this.logger.debug('There are no access and refresh tokens to invalidate.');
@@ -249,7 +249,7 @@ export class TokenAuthenticationProvider extends BaseAuthenticationProvider {
    * @param request Request instance.
    */
   private getLoginPageURL(request: KibanaRequest) {
-    const nextURL = encodeURIComponent(`${this.options.basePath.get(request)}${request.url.path}`);
+    const nextURL = encodeURIComponent(`${this.options.basePath.get(request)}${request.path}`);
     return `${this.options.basePath.get(request)}/login?next=${nextURL}`;
   }
 }

@@ -92,7 +92,7 @@ export function initAuthenticateApi({ authc: { login, logout }, config }, server
       return prepareCustomResourceResponse(
         h.response(`
           window.location.replace(
-            '${server.config().get('server.basePath')}/api/security/v1/oidc?authenticationResponseURI=' + 
+            '${server.config().get('server.basePath')}/api/security/v1/oidc?authenticationResponseURI=' +
               encodeURIComponent(window.location.href)
           );
         `),
@@ -144,7 +144,7 @@ export function initAuthenticateApi({ authc: { login, logout }, config }, server
           loginAttempt = {
             flow: OIDCAuthenticationFlow.AuthorizationCode,
             //  We pass the path only as we can't be sure of the full URL and Elasticsearch doesn't need it anyway.
-            authenticationResponseURI: request.url.path,
+            authenticationResponseURI: request.path,
           };
         } else if (query.iss || payload.iss) {
           // An HTTP GET request with a query parameter named `iss` or an HTTP POST request with the same parameter in the

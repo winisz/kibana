@@ -122,7 +122,7 @@ export class ClusterNodeAdapter implements ServiceHandlerAdapter {
             res: KibanaResponseFactory
           ) => {
             const { context, params } = req.body as RequestPayload;
-            this.log.debug(`Receiving RPC call ${req.url.path} ${util.inspect(params)}`);
+            this.log.debug(`Receiving RPC call ${req.url.pathname} ${util.inspect(params)}`);
             try {
               const data = await localHandler(params, context);
               return res.ok({ body: { data } });

@@ -68,7 +68,7 @@ export class BasicAuthenticationProvider extends BaseAuthenticationProvider {
    * @param [state] Optional state object associated with the provider.
    */
   public async authenticate(request: KibanaRequest, state?: ProviderState | null) {
-    this.logger.debug(`Trying to authenticate user request to ${request.url.path}.`);
+    this.logger.debug(`Trying to authenticate user request to ${request.path}.`);
 
     // try header-based auth
     const {
@@ -84,9 +84,7 @@ export class BasicAuthenticationProvider extends BaseAuthenticationProvider {
       authenticationResult = await this.authenticateViaState(request, state);
     } else if (authenticationResult.notHandled() && canRedirectRequest(request)) {
       // If we couldn't handle authentication let's redirect user to the login page.
-      const nextURL = encodeURIComponent(
-        `${this.options.basePath.get(request)}${request.url.path}`
-      );
+      const nextURL = encodeURIComponent(`${this.options.basePath.get(request)}${request.path}`);
       authenticationResult = AuthenticationResult.redirectTo(
         `${this.options.basePath.get(request)}/login?next=${nextURL}`
       );

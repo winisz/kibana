@@ -141,7 +141,7 @@ import { Type } from '@kbn/config-schema';
 import { TypeOf } from '@kbn/config-schema';
 import { UpdateDocumentByQueryParams } from 'elasticsearch';
 import { UpdateDocumentParams } from 'elasticsearch';
-import { Url } from 'url';
+import { URL } from 'url';
 
 // @public (undocumented)
 export interface APICaller {
@@ -800,12 +800,13 @@ export class KibanaRequest<Params = unknown, Query = unknown, Body = unknown> {
     readonly headers: Headers;
     // (undocumented)
     readonly params: Params;
+    readonly path: string;
     // (undocumented)
     readonly query: Query;
     readonly route: RecursiveReadonly<KibanaRequestRoute>;
     // (undocumented)
     readonly socket: IKibanaSocket;
-    readonly url: Url;
+    readonly url: URL;
     }
 
 // @public

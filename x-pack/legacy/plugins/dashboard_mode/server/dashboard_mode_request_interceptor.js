@@ -34,7 +34,7 @@ export function createDashboardModeRequestInterceptor(dashboardViewerApp) {
         return h.continue;
       }
 
-      const isAppRequest = url.path.startsWith('/app/');
+      const isAppRequest = url.pathname.startsWith('/app/');
 
       // The act of retrieving this setting ends up creating the config document if it doesn't already exist.
       // Various functional tests have come to indirectly rely on this behavior, so changing this is non-trivial.
@@ -51,7 +51,7 @@ export function createDashboardModeRequestInterceptor(dashboardViewerApp) {
 
       const enforceDashboardOnlyMode = isDashboardOnlyModeUser && !isSuperUser;
       if (enforceDashboardOnlyMode) {
-        if (url.path.startsWith('/app/kibana')) {
+        if (url.pathname.startsWith('/app/kibana')) {
           // If the user is in "Dashboard only mode" they should only be allowed to see
           // that app and none others.  Here we are intercepting all other routing and ensuring the viewer
           // app is the only one ever rendered.

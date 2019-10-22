@@ -173,7 +173,7 @@ export class SAMLAuthenticationProvider extends BaseAuthenticationProvider {
    * @param [state] Optional state object associated with the provider.
    */
   public async authenticate(request: KibanaRequest, state?: ProviderState | null) {
-    this.logger.debug(`Trying to authenticate user request to ${request.url.path}.`);
+    this.logger.debug(`Trying to authenticate user request to ${request.path}.`);
 
     // We should get rid of `Bearer` scheme support as soon as Reporting doesn't need it anymore.
     let {
@@ -208,7 +208,7 @@ export class SAMLAuthenticationProvider extends BaseAuthenticationProvider {
    * @param state State value previously stored by the provider.
    */
   public async logout(request: KibanaRequest, state?: ProviderState) {
-    this.logger.debug(`Trying to log user out via ${request.url.path}.`);
+    this.logger.debug(`Trying to log user out via ${request.path}.`);
 
     if ((!state || !state.accessToken) && !isSAMLRequestQuery(request.query)) {
       this.logger.debug('There is neither access token nor SAML session to invalidate.');
@@ -564,7 +564,7 @@ export class SAMLAuthenticationProvider extends BaseAuthenticationProvider {
    */
   private captureRedirectURL(request: KibanaRequest) {
     const basePath = this.options.basePath.get(request);
-    const redirectURL = `${basePath}${request.url.path}`;
+    const redirectURL = `${basePath}${request.path}`;
 
     // If the size of the path already exceeds the maximum allowed size of the URL to store in the
     // session there is no reason to try to capture URL fragment and we start handshake immediately.
