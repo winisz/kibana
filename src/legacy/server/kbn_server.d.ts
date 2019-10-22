@@ -147,7 +147,7 @@ export default class KbnServer {
 }
 
 // Re-export commonly used hapi types.
-export { Server, Request, ResponseToolkit } from 'hapi';
+export { Server, Request, ResponseToolkit } from '@hapi/hapi';
 
 // Re-export commonly accessed api types.
 export { IndexPatternsService } from './index_patterns';
