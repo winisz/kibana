@@ -118,13 +118,15 @@ describe('TokenAuthenticationProvider', () => {
 
     it('redirects non-AJAX requests that can not be authenticated to the login page.', async () => {
       const authenticationResult = await provider.authenticate(
-        httpServerMock.createKibanaRequest({ path: '/s/foo/some-path # that needs to be encoded' }),
+        httpServerMock.createKibanaRequest({
+          pathname: '/s/foo/some-path # that needs to be encoded',
+        }),
         null
       );
 
       expect(authenticationResult.redirected()).toBe(true);
       expect(authenticationResult.redirectURL).toBe(
-        '/base-path/login?next=%2Fbase-path%2Fs%2Ffoo%2Fsome-path%20%23%20that%20needs%20to%20be%20encoded'
+        '/base-path/login?next=%2Fbase-path%2Fs%2Ffoo%2Fsome-path%2520%2523%2520that%2520needs%2520to%2520be%2520encoded'
       );
     });
 

@@ -16,12 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { Request } from '@hapi/hapi';
-import { merge } from 'lodash';
+
+import { URL } from 'url';
+import QS from 'querystring';
 import { Socket } from 'net';
 
-import querystring from 'querystring';
-
+import { Request } from '@hapi/hapi';
+import { merge } from 'lodash';
 import { schema } from '@kbn/config-schema';
 
 import {
@@ -37,12 +38,14 @@ interface RequestFixtureOptions {
   body?: Record<string, any>;
   query?: Record<string, any>;
   path?: string;
+  pathname?: string;
   method?: RouteMethod;
   socket?: Socket;
 }
 
 function createKibanaRequestMock({
   path = '/path',
+  pathname,
   headers = { accept: 'something/html' },
   params = {},
   body = {},
@@ -50,20 +53,25 @@ function createKibanaRequestMock({
   method = 'get',
   socket = new Socket(),
 }: RequestFixtureOptions = {}) {
-  const queryString = querystring.stringify(query);
+  const url = new URL(`http://localhost:5601${path.startsWith('/') ? path : `/${path}`}`);
+
+  if (pathname) {
+    url.pathname = pathname;
+  }
+
+  for (const [key, value] of Object.entries(query)) {
+    url.searchParams.set(key, value);
+  }
+
   return KibanaRequest.from(
     {
       headers,
       params,
-      query,
+      query: url.search ? QS.parse(url.search.slice(1)) : {},
       payload: body,
-      path,
+      path: url.pathname,
       method,
-      url: {
-        path,
-        query: queryString,
-        search: queryString ? `?${queryString}` : queryString,
-      },
+      url,
       route: { settings: {} },
       raw: {
         req: { socket },

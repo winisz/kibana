@@ -393,7 +393,7 @@ describe('SAMLAuthenticationProvider', () => {
 
         mockOptions.client.callAsInternalUser.withArgs('shield.samlPrepare').resolves({
           id: 'some-request-id',
-          redirect: 'https://idp-host/path/login?SAMLRequest=some%20request%20',
+          redirect: 'https://idp-host/path/login?SAMLRequest=some+request+',
         });
 
         const authenticationResult = await provider.login(
@@ -415,7 +415,7 @@ describe('SAMLAuthenticationProvider', () => {
 
         expect(authenticationResult.redirected()).toBe(true);
         expect(authenticationResult.redirectURL).toBe(
-          'https://idp-host/path/login?SAMLRequest=some%20request%20'
+          'https://idp-host/path/login?SAMLRequest=some+request+'
         );
         expect(authenticationResult.state).toEqual({
           requestId: 'some-request-id',
@@ -428,7 +428,7 @@ describe('SAMLAuthenticationProvider', () => {
 
         mockOptions.client.callAsInternalUser.withArgs('shield.samlPrepare').resolves({
           id: 'some-request-id',
-          redirect: 'https://idp-host/path/login?SAMLRequest=some%20request%20',
+          redirect: 'https://idp-host/path/login?SAMLRequest=some+request+',
         });
 
         const authenticationResult = await provider.login(
@@ -453,7 +453,7 @@ describe('SAMLAuthenticationProvider', () => {
 
         expect(authenticationResult.redirected()).toBe(true);
         expect(authenticationResult.redirectURL).toBe(
-          'https://idp-host/path/login?SAMLRequest=some%20request%20'
+          'https://idp-host/path/login?SAMLRequest=some+request+'
         );
         expect(authenticationResult.state).toEqual({
           requestId: 'some-request-id',
@@ -466,7 +466,7 @@ describe('SAMLAuthenticationProvider', () => {
 
         mockOptions.client.callAsInternalUser.withArgs('shield.samlPrepare').resolves({
           id: 'some-request-id',
-          redirect: 'https://idp-host/path/login?SAMLRequest=some%20request%20',
+          redirect: 'https://idp-host/path/login?SAMLRequest=some+request+',
         });
 
         const authenticationResult = await provider.login(
@@ -491,7 +491,7 @@ describe('SAMLAuthenticationProvider', () => {
 
         expect(authenticationResult.redirected()).toBe(true);
         expect(authenticationResult.redirectURL).toBe(
-          'https://idp-host/path/login?SAMLRequest=some%20request%20'
+          'https://idp-host/path/login?SAMLRequest=some+request+'
         );
         expect(authenticationResult.state).toEqual({
           requestId: 'some-request-id',
@@ -1017,7 +1017,7 @@ describe('SAMLAuthenticationProvider', () => {
       sinon.assert.calledWithExactly(
         mockOptions.client.callAsInternalUser,
         'shield.samlInvalidate',
-        { body: { queryString: 'SAMLRequest=xxx%20yyy', realm: 'test-realm' } }
+        { body: { queryString: 'SAMLRequest=xxx+yyy', realm: 'test-realm' } }
       );
 
       expect(authenticationResult.failed()).toBe(true);
@@ -1115,7 +1115,7 @@ describe('SAMLAuthenticationProvider', () => {
       sinon.assert.calledWithExactly(
         mockOptions.client.callAsInternalUser,
         'shield.samlInvalidate',
-        { body: { queryString: 'SAMLRequest=xxx%20yyy', realm: 'test-realm' } }
+        { body: { queryString: 'SAMLRequest=xxx+yyy', realm: 'test-realm' } }
       );
 
       expect(authenticationResult.redirected()).toBe(true);
@@ -1135,7 +1135,7 @@ describe('SAMLAuthenticationProvider', () => {
       sinon.assert.calledWithExactly(
         mockOptions.client.callAsInternalUser,
         'shield.samlInvalidate',
-        { body: { queryString: 'SAMLRequest=xxx%20yyy', realm: 'test-realm' } }
+        { body: { queryString: 'SAMLRequest=xxx+yyy', realm: 'test-realm' } }
       );
 
       expect(authenticationResult.redirected()).toBe(true);
@@ -1155,7 +1155,7 @@ describe('SAMLAuthenticationProvider', () => {
       sinon.assert.calledWithExactly(
         mockOptions.client.callAsInternalUser,
         'shield.samlInvalidate',
-        { body: { queryString: 'SAMLRequest=xxx%20yyy', realm: 'test-realm' } }
+        { body: { queryString: 'SAMLRequest=xxx+yyy', realm: 'test-realm' } }
       );
 
       expect(authenticationResult.redirected()).toBe(true);
