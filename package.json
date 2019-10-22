@@ -102,6 +102,7 @@
       "**/@types/*/**",
       "**/grunt-*",
       "**/grunt-*/**",
+      "**/subscriptions-transport-ws",
       "x-pack/typescript"
     ]
   },
