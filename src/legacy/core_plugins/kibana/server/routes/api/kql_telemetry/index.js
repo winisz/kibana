@@ -18,7 +18,7 @@
  */
 
 import Joi from '@hapi/joi';
-import { Boom } from '@hapi/boom';
+import Boom from '@hapi/boom';
 
 export function registerKqlTelemetryApi(server) {
   server.route({
@@ -51,7 +51,7 @@ export function registerKqlTelemetryApi(server) {
         );
       }
       catch (error) {
-        return new Boom('Something went wrong', { statusCode: error.status, data: { success: false } });
+        return new Boom.Boom('Something went wrong', { statusCode: error.status, data: { success: false } });
       }
 
       return { success: true };

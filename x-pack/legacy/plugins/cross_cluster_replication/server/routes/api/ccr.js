@@ -4,7 +4,7 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import { Boom } from '@hapi/boom';
+import Boom from '@hapi/boom';
 
 import { API_BASE_PATH } from '../../../common/constants';
 import { callWithRequestFactory } from '../../lib/call_with_request_factory';
@@ -60,7 +60,7 @@ export const registerCcrRoutes = (server) => {
       if (!xpackInfo) {
         // xpackInfo is updated via poll, so it may not be available until polling has begun.
         // In this rare situation, tell the client the service is temporarily unavailable.
-        throw new Boom('Security info unavailable', { statusCode: 503 });
+        throw new Boom.Boom('Security info unavailable', { statusCode: 503 });
       }
 
       const securityInfo = (xpackInfo && xpackInfo.isAvailable() && xpackInfo.feature('security'));

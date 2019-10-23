@@ -18,7 +18,7 @@
  */
 
 import Joi from '@hapi/joi';
-import { Boom } from '@hapi/boom';
+import Boom from '@hapi/boom';
 import { Report } from '@kbn/analytics';
 import { Server } from '@hapi/hapi';
 
@@ -74,7 +74,7 @@ export function registerUiMetricRoute(server: Server) {
         await storeReport(server, report);
         return {};
       } catch (error) {
-        return new Boom('Something went wrong', { statusCode: error.status });
+        return new Boom.Boom('Something went wrong', { statusCode: error.status });
       }
     },
   });

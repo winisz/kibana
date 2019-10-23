@@ -19,7 +19,7 @@
 
 import { ObjectType, TypeOf, Type } from '@kbn/config-schema';
 import { Request, ResponseObject, ResponseToolkit } from '@hapi/hapi';
-import { Boom } from '@hapi/boom';
+import Boom from '@hapi/boom';
 
 import { Logger } from '../../logging';
 import { KibanaRequest } from './request';
@@ -32,7 +32,10 @@ interface RouterRoute {
   method: RouteMethod;
   path: string;
   options: RouteConfigOptions;
-  handler: (req: Request, responseToolkit: ResponseToolkit) => Promise<ResponseObject | Boom<any>>;
+  handler: (
+    req: Request,
+    responseToolkit: ResponseToolkit
+  ) => Promise<ResponseObject | Boom.Boom<any>>;
 }
 
 /**
