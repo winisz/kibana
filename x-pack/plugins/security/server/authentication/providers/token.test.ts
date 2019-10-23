@@ -303,7 +303,7 @@ describe('TokenAuthenticationProvider', () => {
     });
 
     it('redirects non-AJAX requests to /login and clears session if token document is missing', async () => {
-      const request = httpServerMock.createKibanaRequest({ path: '/some-path' });
+      const request = httpServerMock.createKibanaRequest({ pathname: '/some-path' });
       const tokenPair = { accessToken: 'foo', refreshToken: 'bar' };
 
       mockScopedClusterClient(
@@ -333,7 +333,7 @@ describe('TokenAuthenticationProvider', () => {
     });
 
     it('redirects non-AJAX requests to /login and clears session if token cannot be refreshed', async () => {
-      const request = httpServerMock.createKibanaRequest({ path: '/some-path' });
+      const request = httpServerMock.createKibanaRequest({ pathname: '/some-path' });
       const tokenPair = { accessToken: 'foo', refreshToken: 'bar' };
 
       mockScopedClusterClient(
@@ -362,7 +362,7 @@ describe('TokenAuthenticationProvider', () => {
     it('does not redirect AJAX requests if token token cannot be refreshed', async () => {
       const request = httpServerMock.createKibanaRequest({
         headers: { 'kbn-xsrf': 'xsrf' },
-        path: '/some-path',
+        pathname: '/some-path',
       });
       const tokenPair = { accessToken: 'foo', refreshToken: 'bar' };
 

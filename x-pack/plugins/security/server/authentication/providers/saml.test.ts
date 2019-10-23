@@ -552,7 +552,7 @@ describe('SAMLAuthenticationProvider', () => {
     });
 
     it('redirects non-AJAX request that can not be authenticated to the "capture fragment" page.', async () => {
-      const request = httpServerMock.createKibanaRequest({ path: '/s/foo/some-path' });
+      const request = httpServerMock.createKibanaRequest({ pathname: '/s/foo/some-path' });
 
       mockOptions.client.callAsInternalUser.withArgs('shield.samlPrepare').resolves({
         id: 'some-request-id',
@@ -572,7 +572,7 @@ describe('SAMLAuthenticationProvider', () => {
 
     it('redirects non-AJAX request that can not be authenticated to the IdP if request path is too large.', async () => {
       const request = httpServerMock.createKibanaRequest({
-        path: `/s/foo/${'some-path'.repeat(10)}`,
+        pathname: `/s/foo/${'some-path'.repeat(10)}`,
       });
 
       mockOptions.client.callAsInternalUser.withArgs('shield.samlPrepare').resolves({
@@ -600,7 +600,7 @@ describe('SAMLAuthenticationProvider', () => {
 
     it('fails if SAML request preparation fails.', async () => {
       const request = httpServerMock.createKibanaRequest({
-        path: `/s/foo/${'some-path'.repeat(10)}`,
+        pathname: `/s/foo/${'some-path'.repeat(10)}`,
       });
 
       const failureReason = new Error('Realm is misconfigured!');
@@ -759,7 +759,7 @@ describe('SAMLAuthenticationProvider', () => {
     });
 
     it('re-capture URL for non-AJAX requests if access token document is missing.', async () => {
-      const request = httpServerMock.createKibanaRequest({ path: '/s/foo/some-path' });
+      const request = httpServerMock.createKibanaRequest({ pathname: '/s/foo/some-path' });
       const state = {
         username: 'user',
         accessToken: 'expired-token',
@@ -791,7 +791,7 @@ describe('SAMLAuthenticationProvider', () => {
 
     it('initiates SAML handshake for non-AJAX requests if access token document is missing and request path is too large.', async () => {
       const request = httpServerMock.createKibanaRequest({
-        path: `/s/foo/${'some-path'.repeat(10)}`,
+        pathname: `/s/foo/${'some-path'.repeat(10)}`,
       });
       const state = {
         username: 'user',
@@ -835,7 +835,7 @@ describe('SAMLAuthenticationProvider', () => {
     });
 
     it('re-capture URL for non-AJAX requests if refresh token is expired.', async () => {
-      const request = httpServerMock.createKibanaRequest({ path: '/s/foo/some-path' });
+      const request = httpServerMock.createKibanaRequest({ pathname: '/s/foo/some-path' });
       const state = {
         username: 'user',
         accessToken: 'expired-token',
@@ -864,7 +864,7 @@ describe('SAMLAuthenticationProvider', () => {
 
     it('initiates SAML handshake for non-AJAX requests if refresh token is expired and request path is too large.', async () => {
       const request = httpServerMock.createKibanaRequest({
-        path: `/s/foo/${'some-path'.repeat(10)}`,
+        pathname: `/s/foo/${'some-path'.repeat(10)}`,
       });
       const state = {
         username: 'user',

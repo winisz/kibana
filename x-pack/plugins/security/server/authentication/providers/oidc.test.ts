@@ -42,7 +42,9 @@ describe('OIDCAuthenticationProvider', () => {
 
   describe('`login` method', () => {
     it('redirects third party initiated login attempts to the OpenId Connect Provider.', async () => {
-      const request = httpServerMock.createKibanaRequest({ path: '/api/security/v1/oidc' });
+      const request = httpServerMock.createKibanaRequest({
+        pathname: '/api/security/v1/oidc',
+      });
 
       mockOptions.client.callAsInternalUser.withArgs('shield.oidcPrepare').resolves({
         state: 'statevalue',
@@ -205,7 +207,11 @@ describe('OIDCAuthenticationProvider', () => {
     describe('authorization code flow', () => {
       defineAuthenticationFlowTests(() => ({
         request: httpServerMock.createKibanaRequest({
-          path: '/api/security/v1/oidc?code=somecodehere&state=somestatehere',
+          pathname: '/api/security/v1/oidc',
+          query: {
+            code: 'somecodehere',
+            state: 'somestatehere',
+          },
         }),
         attempt: {
           flow: OIDCAuthenticationFlow.AuthorizationCode,
@@ -218,8 +224,11 @@ describe('OIDCAuthenticationProvider', () => {
     describe('implicit flow', () => {
       defineAuthenticationFlowTests(() => ({
         request: httpServerMock.createKibanaRequest({
-          path:
-            '/api/security/v1/oidc?authenticationResponseURI=http://kibana/api/security/v1/oidc/implicit#id_token=sometoken',
+          pathname: '/api/security/v1/oidc',
+          query: {
+            authenticationResponseURI: 'http://kibana/api/security/v1/oidc/implicit',
+          },
+          hash: '#id_token=sometoken',
         }),
         attempt: {
           flow: OIDCAuthenticationFlow.Implicit,
@@ -241,7 +250,7 @@ describe('OIDCAuthenticationProvider', () => {
     });
 
     it('redirects non-AJAX request that can not be authenticated to the OpenId Connect Provider.', async () => {
-      const request = httpServerMock.createKibanaRequest({ path: '/s/foo/some-path' });
+      const request = httpServerMock.createKibanaRequest({ pathname: '/s/foo/some-path' });
 
       mockOptions.client.callAsInternalUser.withArgs('shield.oidcPrepare').resolves({
         state: 'statevalue',
@@ -276,7 +285,7 @@ describe('OIDCAuthenticationProvider', () => {
     });
 
     it('fails if OpenID Connect authentication request preparation fails.', async () => {
-      const request = httpServerMock.createKibanaRequest({ path: '/some-path' });
+      const request = httpServerMock.createKibanaRequest({ pathname: '/some-path' });
 
       const failureReason = new Error('Realm is misconfigured!');
       mockOptions.client.callAsInternalUser
@@ -412,7 +421,7 @@ describe('OIDCAuthenticationProvider', () => {
     });
 
     it('redirects to OpenID Connect Provider for non-AJAX requests if refresh token is expired or already refreshed.', async () => {
-      const request = httpServerMock.createKibanaRequest({ path: '/s/foo/some-path' });
+      const request = httpServerMock.createKibanaRequest({ pathname: '/s/foo/some-path' });
       const tokenPair = { accessToken: 'expired-token', refreshToken: 'expired-refresh-token' };
 
       mockOptions.client.callAsInternalUser.withArgs('shield.oidcPrepare').resolves({

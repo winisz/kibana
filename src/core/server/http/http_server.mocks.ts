@@ -36,29 +36,26 @@ interface RequestFixtureOptions {
   headers?: Record<string, string>;
   params?: Record<string, any>;
   body?: Record<string, any>;
-  query?: Record<string, any>;
-  path?: string;
   pathname?: string;
+  query?: Record<string, any>;
+  hash?: string;
   method?: RouteMethod;
   socket?: Socket;
 }
 
 function createKibanaRequestMock({
-  path = '/path',
-  pathname,
+  pathname = '/path',
+  query = {},
+  hash = '',
   headers = { accept: 'something/html' },
   params = {},
   body = {},
-  query = {},
   method = 'get',
   socket = new Socket(),
 }: RequestFixtureOptions = {}) {
-  const url = new URL(`http://localhost:5601${path.startsWith('/') ? path : `/${path}`}`);
-
-  if (pathname) {
-    url.pathname = pathname;
-  }
-
+  const url = new URL(`http://localhost:5601`);
+  url.pathname = pathname;
+  url.hash = hash;
   for (const [key, value] of Object.entries(query)) {
     url.searchParams.set(key, value);
   }
