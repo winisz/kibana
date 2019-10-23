@@ -257,6 +257,7 @@ describe('setupAuthentication()', () => {
     it('includes `WWW-Authenticate` header if `authenticate` fails to authenticate user and provides challenges', async () => {
       const mockResponse = httpServerMock.createLifecycleResponseFactory();
       const originalError = Boom.unauthorized('some message');
+      // @ts-ignore Boom.headers is not currently extensible
       originalError.output.headers['WWW-Authenticate'] = [
         'Basic realm="Access to prod", charset="UTF-8"',
         'Basic',

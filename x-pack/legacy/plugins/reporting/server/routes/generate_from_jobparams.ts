@@ -80,6 +80,7 @@ export function registerGenerateFromJobParams(
     config: getRouteConfig(),
     handler: () => {
       const err = boom.methodNotAllowed('GET is not allowed');
+      // @ts-ignore Boom.headers is not currently extensible
       err.output.headers.allow = 'POST';
       return err;
     },

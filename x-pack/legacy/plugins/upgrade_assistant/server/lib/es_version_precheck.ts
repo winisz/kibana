@@ -39,12 +39,16 @@ export const verifyAllMatchKibanaVersion = (allNodeVersions: SemVer[]) => {
   ).length;
 
   if (numDifferentVersion) {
-    const error = new Boom(`There are some nodes running a different version of Elasticsearch`, {
-      // 426 means "Upgrade Required" and is used when semver compatibility is not met.
-      statusCode: 426,
-    });
+    const error = new Boom.Boom(
+      `There are some nodes running a different version of Elasticsearch`,
+      {
+        // 426 means "Upgrade Required" and is used when semver compatibility is not met.
+        statusCode: 426,
+      }
+    );
 
-    error.output.payload.attributes = { allNodesUpgraded: !numSameVersion };
+    // @ts-ignore Boom.Payload.attributes are not currently extensible
+    error.output.payload.attributes.allNodesUpgraded = !numSameVersion;
     throw error;
   }
 };

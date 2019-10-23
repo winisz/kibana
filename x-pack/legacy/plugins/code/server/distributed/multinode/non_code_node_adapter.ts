@@ -114,7 +114,7 @@ export class NonCodeNodeAdapter implements ServiceHandlerAdapter {
         )}`
       );
       const body: Boom.Payload = await Wreck.read(res, { json: true });
-      throw new Boom(body.message, { statusCode: res.statusCode || 500, data: body.error });
+      throw new Boom.Boom(body.message, { statusCode: res.statusCode || 500, data: body.error });
     }
   }
 }

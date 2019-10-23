@@ -64,10 +64,11 @@ export const graphqlHapi: Plugin<HapiGraphQLPluginOptions> = {
               .type('application/json');
           }
 
-          const genericError = new Boom(error.message, { statusCode: error.statusCode });
+          const genericError = new Boom.Boom(error.message, { statusCode: error.statusCode });
 
           if (error.headers) {
             Object.keys(error.headers).forEach(header => {
+              // @ts-ignore Boom.headers is not currently extensible
               genericError.output.headers[header] = error.headers[header];
             });
           }

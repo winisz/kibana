@@ -110,7 +110,7 @@ describe('cluster checkup API', () => {
 
     it('returns a 426 if EsVersionCheck throws', async () => {
       (EsVersionPrecheck.method as jest.Mock).mockRejectedValue(
-        new Boom(`blah`, { statusCode: 426 })
+        new Boom.Boom(`blah`, { statusCode: 426 })
       );
 
       const resp = await server.inject({
