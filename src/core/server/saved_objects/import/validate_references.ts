@@ -59,8 +59,8 @@ export async function getNonExistingReferenceAsKeys(
   );
   if (erroredObjects.length) {
     const err = Boom.badRequest();
-    // Boom.output.payload is type limited to the default properties
-    (err.output.payload as any).attributes = {
+    // @ts-ignore Boom.output.payload is type limited to the default properties
+    err.output.payload.attributes = {
       objects: erroredObjects,
     };
     throw err;

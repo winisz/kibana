@@ -47,8 +47,8 @@ export const verifyAllMatchKibanaVersion = (allNodeVersions: SemVer[]) => {
       }
     );
 
-    // @ts-ignore Boom.Payload.attributes are not currently extensible
-    error.output.payload.attributes.allNodesUpgraded = !numSameVersion;
+    // @ts-ignore Boom.output.payload is type limited to the default properties
+    error.output.payload.attributes = { allNodesUpgraded: !numSameVersion };
     throw error;
   }
 };
