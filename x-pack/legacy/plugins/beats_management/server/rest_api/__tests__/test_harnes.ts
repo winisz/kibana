@@ -77,7 +77,7 @@ export const testHarnes = {
   },
   getServerLibs: async () => {
     if (!serverLibs) {
-      const server = new Hapi.Server({ port: 111111 });
+      const server = new Hapi.Server({ port: 0 });
       const versionHeader = 'kbn-version';
       const xsrfHeader = 'kbn-xsrf';
 
