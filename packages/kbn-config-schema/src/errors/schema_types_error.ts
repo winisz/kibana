@@ -20,7 +20,11 @@
 import { SchemaTypeError } from '.';
 
 export class SchemaTypesError extends SchemaTypeError {
-  constructor(error: Error | string, path: string[], public readonly errors: SchemaTypeError[]) {
+  constructor(
+    error: Error | string,
+    path: Array<number | string>,
+    public readonly errors: SchemaTypeError[]
+  ) {
     super(error, path);
 
     // Set the prototype explicitly, see:
