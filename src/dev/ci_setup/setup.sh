@@ -10,6 +10,9 @@ echo " -- PARENT_DIR='$PARENT_DIR'"
 echo " -- KIBANA_PKG_BRANCH='$KIBANA_PKG_BRANCH'"
 echo " -- TEST_ES_SNAPSHOT_VERSION='$TEST_ES_SNAPSHOT_VERSION'"
 
+## TODO - remove before merge
+yarn kbn clean
+
 ###
 ### install dependencies
 ###
