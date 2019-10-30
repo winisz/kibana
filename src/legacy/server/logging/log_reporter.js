@@ -18,7 +18,7 @@
  */
 
 import { Squeeze } from '@hapi/good-squeeze';
-import { createWriteStream as writeStr } from 'fs';
+import { createWriteStream } from 'fs';
 
 import LogFormatJson from './log_format_json';
 import LogFormatString from './log_format_string';
@@ -33,7 +33,7 @@ export function getLoggerStream({ events, config }) {
   if (config.dest === 'stdout') {
     dest = process.stdout;
   } else {
-    dest = writeStr(config.dest, {
+    dest = createWriteStream(config.dest, {
       flags: 'a',
       encoding: 'utf8'
     });
