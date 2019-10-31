@@ -20,7 +20,15 @@
 import { Readable } from 'stream';
 
 import * as Rx from 'rxjs';
-import { scan, takeUntil, share, materialize, mergeMap, last, catchError } from 'rxjs/operators';
+import {
+  scan,
+  takeUntil,
+  share,
+  materialize,
+  mergeMap,
+  last,
+  defaultIfEmpty,
+} from 'rxjs/operators';
 
 const SEP = /\r?\n/;
 
@@ -78,10 +86,9 @@ export function observeLines(readable: Readable): Rx.Observable<string> {
 
     // inject the "unsplit" data at the end
     scan$.pipe(
+      defaultIfEmpty({ buffer: '' }),
       last(),
-      mergeMap(({ buffer }) => (buffer ? [buffer] : [])),
-      // if there were no lines, last() will error, so catch and complete
-      catchError(() => Rx.empty())
+      mergeMap(({ buffer }) => (buffer ? [buffer] : []))
     )
   );
 }
