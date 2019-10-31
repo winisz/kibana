@@ -88,6 +88,7 @@ export function startProc(name: string, options: ProcOptions, log: ToolingLog) {
     env,
     stdio: ['pipe', 'pipe', 'pipe'],
     preferLocal: true,
+    buffer: false,
   });
 
   if (stdin) {
