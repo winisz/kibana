@@ -23,7 +23,8 @@ target
 /test/*/screenshots/visual_regression_gallery.html
 /html_docs
 .eslintcache
-/plugins/
+/plugins/*/node_modules
+/plugins/*/idea
 /data
 disabledPlugins
 webpackstats.json
