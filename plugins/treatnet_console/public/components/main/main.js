@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import {
   EuiPage,
   EuiPageHeader,
@@ -10,13 +11,15 @@ import {
   EuiText
 } from '@elastic/eui';
 
+import TCNavbar from '../../components/navbar/navbar';
+
 export class Main extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {};
   }
 
-  componentDidMount() {
+  componentDidMount () {
     /*
        FOR EXAMPLE PURPOSES ONLY.  There are much better ways to
        manage state and update your UI than this.
@@ -26,12 +29,17 @@ export class Main extends React.Component {
       this.setState({ time: resp.data.time });
     });
   }
-  render() {
+
+  render () {
     const { title } = this.props;
     return (
       <EuiPage>
         <EuiPageBody>
           <EuiPageHeader>
+            <Router>
+              <TCNavbar/>
+            </Router>
+
             <EuiTitle size="l">
               <h1>
                 {title} Hello World!
