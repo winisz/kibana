@@ -8,8 +8,8 @@ import chrome from 'ui/chrome';
 import TCDashboard from '../dashboard/dashboard';
 import TCStixTable from '../stix_table/stix_table';
 
-export const APP_ROOT = chrome.addBasePath('/');
-export const HOME_URL = ''; // HashRouter doesn't require app root
+export const BASE_URL = chrome.addBasePath('/');
+export const HOME_URL = ''; // HashRouter doesn't require base server url
 
 function ExampleComponent () {
   return <p>Example!</p>;
@@ -56,10 +56,9 @@ export default RoutingSwitch;
  *  by passing them in a `routes` prop to the component it renders.
  */
 function RouteWithSubRoutes (route) {
-  const exact = route.exact ? 'exact' : '';
   return (
     <Route
-      exact={exact}
+      exact={route.exact}
       path={route.path}
       render={props => (
         // pass the sub-routes down to keep nesting

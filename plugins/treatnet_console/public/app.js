@@ -23,7 +23,7 @@ function RootController ($scope, $element, $http) {
   const domNode = $element[0];
 
   // render react to DOM
-  render(<Main httpClient={$http} />, domNode);
+  render(<Main/>, domNode);
 
   // unmount react on controller destroy
   $scope.$on('$destroy', () => {

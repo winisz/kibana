@@ -1,24 +1,24 @@
-import React, { Component, Fragment } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { PureComponent, Fragment } from 'react';
+import { TreatnetConsoleAPI, TNC_API_URL } from '../../services/treatnet_console_api';
 
 import {
   EuiPageContentHeader,
   EuiPageContentBody,
 } from '@elastic/eui';
 
-class TCStixTable extends Component {
+class TCStixTable extends PureComponent {
   constructor (props) {
     console.log('test0');
     super(props);
     this.state = {};
+    this.apiUrl = TNC_API_URL;
   }
 
   componentDidMount () {
     console.log('test1');
-    const { httpClient } = this.props;
-    // httpClient.get('../api/treatnet_console/example').then((resp) => {
-    //   this.setState({ time: resp.data.time });
-    // });
+    TreatnetConsoleAPI.get('example').then((resp) => {
+      this.setState({ time: resp.data.time });
+    });
   }
 
   componentWillMount () {
@@ -31,6 +31,7 @@ class TCStixTable extends Component {
       <Fragment>
         <EuiPageContentHeader>Something!</EuiPageContentHeader>
         <EuiPageContentBody>
+          <p>This is api url from config: {this.apiUrl}</p>
           {this.state.time || 'No call yet!'}
           <button onClick={() => { console.log('Clicked!'); }}>Log</button>
         </EuiPageContentBody>
@@ -39,4 +40,4 @@ class TCStixTable extends Component {
   }
 }
 
-export default withRouter(TCStixTable);
+export default TCStixTable;
