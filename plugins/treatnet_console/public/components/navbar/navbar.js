@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import {
@@ -7,9 +7,9 @@ import {
   EuiKeyPadMenuItemButton
 } from '@elastic/eui';
 
-import { RoutingSwitch, getPath } from '../routing/routing';
+import { getPath } from '../routing/routing';
 
-class TCNavbar extends PureComponent {
+class TCNavbar extends Component {
   constructor (props) {
     super(props);
     this.handlePathChange = this.handlePathChange.bind(this);
@@ -22,24 +22,27 @@ class TCNavbar extends PureComponent {
   render () {
     return (
       <Fragment>
-        <div>
-          <EuiKeyPadMenu>
+        <EuiKeyPadMenu>
 
-            <EuiKeyPadMenuItemButton
-              label="Dashboard"
-              onClick={() => this.handlePathChange('')}>
-              <EuiIcon type="dashboardApp" size="l"/>
-            </EuiKeyPadMenuItemButton>
+          <EuiKeyPadMenuItemButton
+            label="Dashboard"
+            onClick={() => this.handlePathChange('')}>
+            <EuiIcon type="dashboardApp" size="l"/>
+          </EuiKeyPadMenuItemButton>
 
-            <EuiKeyPadMenuItemButton
-              label="Subsite"
-              onClick={() => this.handlePathChange('subsite')}>
-              <EuiIcon type="dashboardApp" size="l"/>
-            </EuiKeyPadMenuItemButton>
+          <EuiKeyPadMenuItemButton
+            label="STIX definitions"
+            onClick={() => this.handlePathChange('stix')}>
+            <EuiIcon type="securityAnalyticsApp" size="l"/>
+          </EuiKeyPadMenuItemButton>
 
-          </EuiKeyPadMenu>
-        </div>
-        <RoutingSwitch/>
+          <EuiKeyPadMenuItemButton
+            label="Example component"
+            onClick={() => this.handlePathChange('some_other')}>
+            <EuiIcon type="addDataApp" size="l"/>
+          </EuiKeyPadMenuItemButton>
+
+        </EuiKeyPadMenu>
       </Fragment>
     );
   }

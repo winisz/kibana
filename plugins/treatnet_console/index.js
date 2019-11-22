@@ -3,7 +3,7 @@ import { existsSync } from 'fs';
 
 import { i18n } from '@kbn/i18n';
 
-import exampleRoute from './server/routes/example';
+import initRoutes from './server/routes/routes';
 
 export default function (kibana) {
   return new kibana.Plugin({
@@ -63,7 +63,7 @@ export default function (kibana) {
       }
 
       // Add server routes and initialize the plugin here
-      exampleRoute(server);
+      initRoutes(server);
     }
   });
 }
