@@ -8,6 +8,7 @@ import initRoutes from './server/routes/routes';
 export default function (kibana) {
   return new kibana.Plugin({
     require: ['elasticsearch'],
+    id: 'treatnet_console',
     name: 'treatnet_console',
     uiExports: {
       app: {
@@ -19,11 +20,21 @@ export default function (kibana) {
         'plugins/treatnet_console/hack'
       ],
       styleSheetPaths: [resolve(__dirname, 'public/app.scss'), resolve(__dirname, 'public/app.css')].find(p => existsSync(p)),
+      injectDefaultVars (server) {
+        const config = server.config();
+        return {
+          treatnetConsoleEnabled: config.get('treatnet_console.enabled'),
+          treatnetConsoleApiUrl: config.get('treatnet_console.api.url'),
+        };
+      },
     },
 
     config (Joi) {
       return Joi.object({
         enabled: Joi.boolean().default(true),
+        api: Joi.object({
+          url: Joi.string().required()
+        }),
       }).default();
     },
 
