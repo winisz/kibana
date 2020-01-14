@@ -1,0 +1,10 @@
+{
+  "paths": {
+    "tnc": "./public"
+  },
+  "exclude": [
+  ],
+  "translations": [
+    "translations/pl-PL.json"
+  ]
+}
