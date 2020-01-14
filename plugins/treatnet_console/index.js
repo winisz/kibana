@@ -7,7 +7,7 @@ import initRoutes from './server/routes/routes';
 
 export default function (kibana) {
   return new kibana.Plugin({
-    require: ['elasticsearch'],
+    require: ['elasticsearch', 'kibana', 'security'],
     id: 'treatnet_console',
     name: 'treatnet_console',
     uiExports: {
@@ -17,14 +17,17 @@ export default function (kibana) {
         main: 'plugins/treatnet_console/app',
       },
       hacks: [
-        'plugins/treatnet_console/hack'
+        'plugins/treatnet_console/hack',
+        'plugins/treatnet_console/add_locale',
       ],
       styleSheetPaths: [resolve(__dirname, 'public/app.scss'), resolve(__dirname, 'public/app.css')].find(p => existsSync(p)),
       injectDefaultVars (server) {
         const config = server.config();
         return {
-          treatnetConsoleEnabled: config.get('treatnet_console.enabled'),
-          treatnetConsoleApiUrl: config.get('treatnet_console.api.url'),
+          tncEnabled: config.get('treatnet_console.enabled'),
+          tncApiUrl: config.get('treatnet_console.api.url'),
+          tncApiUsername: config.get('treatnet_console.api.username'),
+          tncApiPassword: config.get('treatnet_console.api.password'),
         };
       },
     },
@@ -33,13 +36,16 @@ export default function (kibana) {
       return Joi.object({
         enabled: Joi.boolean().default(true),
         api: Joi.object({
-          url: Joi.string().required()
+          url: Joi.string().required(),
+          username: Joi.string().required(),
+          password: Joi.string().required()
         }),
       }).default();
     },
 
     init (server, options) { // eslint-disable-line no-unused-vars
       const xpackMainPlugin = server.plugins.xpack_main;
+      const xpackSecurityPlugin = server.plugins.security;
       if (xpackMainPlugin) {
         const featureId = 'treatnet_console';
 
@@ -72,6 +78,16 @@ export default function (kibana) {
           },
         });
       }
+      if (xpackSecurityPlugin) {}
+      // Intercept unauthenticated requests and redirect them to login page
+      // server.ext('onRequest', function (request, h) {
+      //   if (!request.auth.isAuthenticated) {
+      //     return h.redirect('http://wp.pl')
+      //       .code(301)
+      //       .takeover();
+      //   }
+      //   return h.continue;
+      // });
 
       // Add server routes and initialize the plugin here
       initRoutes(server);
