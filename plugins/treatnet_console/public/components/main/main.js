@@ -5,7 +5,8 @@ import {
   EuiPageHeaderSection,
   EuiPageBody,
   EuiPageContent,
-  EuiTitle
+  EuiTitle,
+  EuiI18n,
 } from '@elastic/eui';
 import { HashRouter as Router } from 'react-router-dom';
 
@@ -22,7 +23,10 @@ export class Main extends React.Component {
             <EuiPageHeader>
               <EuiPageHeaderSection>
                 <EuiTitle size="l">
-                  <h1>Treatnet Console</h1>
+                  <h1><EuiI18n
+                    token="main.title"
+                    default="Treatnet Console"
+                  /></h1>
                 </EuiTitle>
               </EuiPageHeaderSection>
               <EuiPageHeaderSection>

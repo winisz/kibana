@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Switch,
-  Route
+  Route, Redirect
 } from 'react-router-dom';
 import chrome from 'ui/chrome';
 
@@ -44,6 +44,10 @@ class RoutingSwitch extends React.Component {
         {routes.map((route, i) => (
           <RouteWithSubRoutes key={i} {...route} />
         ))});
+        <Route render={() => {
+          window.location.replace(BASE_URL + '404');
+          return null;
+        }} />
       </Switch>
     );
   }

@@ -6,8 +6,13 @@ import {
   EuiKeyPadMenu,
   EuiKeyPadMenuItemButton
 } from '@elastic/eui';
+import { i18n } from '@kbn/i18n';
 
 import { getPath } from '../routing/routing';
+
+const dashboardTitle = i18n.translate('tnc.navbar.dashboard-title', { defaultMessage: 'Dashboard' });
+const stixTitle = i18n.translate('tnc.navbar.stix-title', { defaultMessage: 'STIX definitions' });
+const exampleTitle = i18n.translate('tnc.navbar.example-title', { defaultMessage: 'Example content' });
 
 class TCNavbar extends Component {
   constructor (props) {
@@ -25,19 +30,19 @@ class TCNavbar extends Component {
         <EuiKeyPadMenu>
 
           <EuiKeyPadMenuItemButton
-            label="Dashboard"
+            label={dashboardTitle}
             onClick={() => this.handlePathChange('')}>
             <EuiIcon type="dashboardApp" size="l"/>
           </EuiKeyPadMenuItemButton>
 
           <EuiKeyPadMenuItemButton
-            label="STIX definitions"
+            label={stixTitle}
             onClick={() => this.handlePathChange('stix')}>
             <EuiIcon type="securityAnalyticsApp" size="l"/>
           </EuiKeyPadMenuItemButton>
 
           <EuiKeyPadMenuItemButton
-            label="Example component"
+            label={exampleTitle}
             onClick={() => this.handlePathChange('some_other')}>
             <EuiIcon type="addDataApp" size="l"/>
           </EuiKeyPadMenuItemButton>
