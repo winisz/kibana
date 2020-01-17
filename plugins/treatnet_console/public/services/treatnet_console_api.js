@@ -50,6 +50,16 @@ class StixAPI extends BaseTreatnetConsoleAPI {
   }
 }
 
+
+class SinkholeAPI extends BaseTreatnetConsoleAPI {
+  get patterns () {
+    return {
+      list: () => this._get('sinkhole/patterns/')
+    };
+  }
+}
+
 export const TreatnetConsoleAPI = {
-  stix: new StixAPI(httpClient)
+  stix: new StixAPI(httpClient),
+  sinkhole: new SinkholeAPI(httpClient)
 };
