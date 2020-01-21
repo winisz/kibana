@@ -32,7 +32,13 @@ class TCDomainsTable extends PureComponent {
       sortDirection: 'asc',
       selectedItems: [],
       itemIdToExpandedRowMap: {},
+      filters: {
+        address: '',
+        entry_type: '',
+      },
     };
+    this.filterSinkholePatterns = this.filterSinkholePatterns.bind(this);
+    this.setFilterValue = this.setFilterValue.bind(this);
   }
 
   componentDidMount () {
@@ -54,6 +60,28 @@ class TCDomainsTable extends PureComponent {
       }
     });
   }
+
+  filterSinkholePatterns () {
+    TreatnetConsoleAPI.sinkhole.filterPatterns(this.state.filters).list().then((resp) => {
+      this.setState({
+        pageOfItems: resp.data.results,
+        totalItemCount: resp.data.count,
+      });
+    }).catch((error) => {
+      console.log(error);
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      }
+    });
+  };
+
+  setFilterValue (event) {
+    let filters = { ...this.state.filters };
+    filters[event.target.name] = event.target.value;
+    this.setState({filters: filters});
+  };
 
   onTableChange ({ page = {}, sort = {} }) {
     const { index: pageIndex, size: pageSize } = page;
@@ -134,17 +162,17 @@ class TCDomainsTable extends PureComponent {
           <EuiFlexGroup style={{ maxWidth: 600 }}>
             <EuiFlexItem>
               <EuiFormRow label="Address">
-                <EuiFieldText />
+                <EuiFieldText name="address" value={this.state.filters.address} onChange={this.setFilterValue}/>
               </EuiFormRow>
             </EuiFlexItem>
             <EuiFlexItem>
-              <EuiFormRow label="Entry type">
-                <EuiFieldText />
+              <EuiFormRow label="Entry type" >
+                <EuiFieldText name="entry_type" value={this.state.filters.entry_type} onChange={this.setFilterValue}/>
               </EuiFormRow>
             </EuiFlexItem>
             <EuiFlexItem grow={false}>
               <EuiFormRow hasEmptyLabelSpace>
-                <EuiButton>Search</EuiButton>
+                <EuiButton onClick={this.filterSinkholePatterns}>Search</EuiButton>
               </EuiFormRow>
             </EuiFlexItem>
           </EuiFlexGroup>

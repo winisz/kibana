@@ -4,6 +4,7 @@ import chrome from 'ui/chrome';
 import { npStart } from 'ui/new_platform';
 
 const { core } = npStart;
+const querystring = require('querystring');
 
 export const TNC_API_URL = core.injectedMetadata.getInjectedVar('tncApiUrl');
 
@@ -57,6 +58,16 @@ class SinkholeAPI extends BaseTreatnetConsoleAPI {
       list: () => this._get('sinkhole/patterns/')
     };
   }
+  filterPatterns(params = {}) {
+    let url = 'sinkhole/patterns/';
+    if (Object.keys(params).length > 0) {
+      url = url + '?' + querystring.stringify(params);
+    }
+    return {
+      list: () => this._get(url)
+    };
+  };
+
 }
 
 export const TreatnetConsoleAPI = {

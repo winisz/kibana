@@ -45,7 +45,7 @@ class TCNavbar extends Component {
           <EuiKeyPadMenuItemButton
             label={domainsTitle}
             onClick={() => this.handlePathChange('sinkhole_patterns')}>
-            <EuiIcon type="verifyDomain" size="l"/>
+            <EuiIcon type="sqlApp" size="l"/>
           </EuiKeyPadMenuItemButton>
 
         </EuiKeyPadMenu>
