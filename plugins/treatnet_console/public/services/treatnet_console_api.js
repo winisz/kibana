@@ -55,19 +55,15 @@ class StixAPI extends BaseTreatnetConsoleAPI {
 class SinkholeAPI extends BaseTreatnetConsoleAPI {
   get patterns () {
     return {
-      list: () => this._get('sinkhole/patterns/')
+      list: (params = {}) => {
+        let url = 'sinkhole/patterns/';
+        if (Object.keys(params).length > 0) {
+          url = url + '?' + querystring.stringify(params);
+        }
+        return this._get(url);
+      }
     };
   }
-  filterPatterns(params = {}) {
-    let url = 'sinkhole/patterns/';
-    if (Object.keys(params).length > 0) {
-      url = url + '?' + querystring.stringify(params);
-    }
-    return {
-      list: () => this._get(url)
-    };
-  };
-
 }
 
 export const TreatnetConsoleAPI = {

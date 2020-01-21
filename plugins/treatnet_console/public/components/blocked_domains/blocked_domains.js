@@ -14,7 +14,6 @@ import {
   EuiFormRow,
   EuiButton,
   EuiFieldText,
-  EuiFieldNumber,
   EuiSpacer,
 } from '@elastic/eui';
 import { RIGHT_ALIGNMENT } from '@elastic/eui/lib/services';
@@ -34,11 +33,11 @@ class TCDomainsTable extends PureComponent {
       itemIdToExpandedRowMap: {},
       filters: {
         address: '',
-        entry_type: '',
+        pattern_type: '',
       },
     };
-    this.filterSinkholePatterns = this.filterSinkholePatterns.bind(this);
     this.setFilterValue = this.setFilterValue.bind(this);
+    this.loadData = this.loadData.bind(this);
   }
 
   componentDidMount () {
@@ -46,7 +45,7 @@ class TCDomainsTable extends PureComponent {
   }
 
   loadData () {
-    TreatnetConsoleAPI.sinkhole.patterns.list().then((resp) => {
+    TreatnetConsoleAPI.sinkhole.patterns.list(this.state.filters).then((resp) => {
       this.setState({
         pageOfItems: resp.data.results,
         totalItemCount: resp.data.count,
@@ -60,22 +59,6 @@ class TCDomainsTable extends PureComponent {
       }
     });
   }
-
-  filterSinkholePatterns () {
-    TreatnetConsoleAPI.sinkhole.filterPatterns(this.state.filters).list().then((resp) => {
-      this.setState({
-        pageOfItems: resp.data.results,
-        totalItemCount: resp.data.count,
-      });
-    }).catch((error) => {
-      console.log(error);
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      }
-    });
-  };
 
   setFilterValue (event) {
     let filters = { ...this.state.filters };
@@ -167,12 +150,12 @@ class TCDomainsTable extends PureComponent {
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiFormRow label="Entry type" >
-                <EuiFieldText name="entry_type" value={this.state.filters.entry_type} onChange={this.setFilterValue}/>
+                <EuiFieldText name="pattern_type" value={this.state.filters.pattern_type} onChange={this.setFilterValue}/>
               </EuiFormRow>
             </EuiFlexItem>
             <EuiFlexItem grow={false}>
               <EuiFormRow hasEmptyLabelSpace>
-                <EuiButton onClick={this.filterSinkholePatterns}>Search</EuiButton>
+                <EuiButton onClick={this.loadData}>Search</EuiButton>
               </EuiFormRow>
             </EuiFlexItem>
           </EuiFlexGroup>

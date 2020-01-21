@@ -12,7 +12,6 @@ import { getPath } from '../routing/routing';
 
 const dashboardTitle = i18n.translate('tnc.navbar.dashboard-title', { defaultMessage: 'Dashboard' });
 const stixTitle = i18n.translate('tnc.navbar.stix-title', { defaultMessage: 'STIX definitions' });
-const exampleTitle = i18n.translate('tnc.navbar.example-title', { defaultMessage: 'Example content' });
 const domainsTitle = i18n.translate('tnc.navbar.blocked-domains-title', { defaultMessage: 'Blocked domains' });
 
 class TCNavbar extends Component {
