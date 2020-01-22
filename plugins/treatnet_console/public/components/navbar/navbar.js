@@ -31,19 +31,19 @@ class TCNavbar extends Component {
 
           <EuiKeyPadMenuItemButton
             label={dashboardTitle}
-            onClick={() => this.handlePathChange('')}>
+            onClick={() => this.handlePathChange('/')}>
             <EuiIcon type="dashboardApp" size="l"/>
           </EuiKeyPadMenuItemButton>
 
           <EuiKeyPadMenuItemButton
             label={stixTitle}
-            onClick={() => this.handlePathChange('stix')}>
+            onClick={() => this.handlePathChange('/stix')}>
             <EuiIcon type="securityAnalyticsApp" size="l"/>
           </EuiKeyPadMenuItemButton>
 
           <EuiKeyPadMenuItemButton
             label={domainsTitle}
-            onClick={() => this.handlePathChange('sinkhole_patterns')}>
+            onClick={() => this.handlePathChange('/sinkhole_patterns')}>
             <EuiIcon type="sqlApp" size="l"/>
           </EuiKeyPadMenuItemButton>
 

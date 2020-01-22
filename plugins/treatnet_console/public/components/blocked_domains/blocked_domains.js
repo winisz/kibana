@@ -14,6 +14,7 @@ import {
   EuiFormRow,
   EuiButton,
   EuiFieldText,
+  EuiSuperSelect,
   EuiSpacer,
 } from '@elastic/eui';
 import { RIGHT_ALIGNMENT } from '@elastic/eui/lib/services';
@@ -35,6 +36,11 @@ class TCDomainsTable extends PureComponent {
         address: '',
         pattern_type: '',
       },
+      patternTypes: [
+        {value: 'domain', inputDisplay: 'domain'},
+        {value: 'ipv4', inputDisplay: 'ipv4'},
+        {value: 'ipv6', inputDisplay: 'ipv6'},
+      ]
     };
     this.setFilterValue = this.setFilterValue.bind(this);
     this.loadData = this.loadData.bind(this);
@@ -62,7 +68,14 @@ class TCDomainsTable extends PureComponent {
 
   setFilterValue (event) {
     let filters = { ...this.state.filters };
-    filters[event.target.name] = event.target.value;
+    try {
+      filters[event.target.name] = event.target.value;
+    }
+    catch (e) {
+      if (e instanceof TypeError) {
+        filters.pattern_type = event;
+      }
+    }
     this.setState({filters: filters});
   };
 
@@ -150,7 +163,7 @@ class TCDomainsTable extends PureComponent {
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiFormRow label="Entry type" >
-                <EuiFieldText name="pattern_type" value={this.state.filters.pattern_type} onChange={this.setFilterValue}/>
+                <EuiSuperSelect name="pattern_type" value={this.state.filters.pattern_type} onChange={this.setFilterValue} options={this.state.patternTypes}/>
               </EuiFormRow>
             </EuiFlexItem>
             <EuiFlexItem grow={false}>

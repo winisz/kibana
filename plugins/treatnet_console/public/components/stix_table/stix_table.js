@@ -14,10 +14,10 @@ import {
   EuiFormRow,
   EuiButton,
   EuiFieldText,
-  EuiFieldNumber,
   EuiSpacer,
 } from '@elastic/eui';
 import { RIGHT_ALIGNMENT } from '@elastic/eui/lib/services';
+import {getPath} from "../routing/routing";
 
 class TCStixTable extends PureComponent {
   constructor (props) {
@@ -32,6 +32,12 @@ class TCStixTable extends PureComponent {
       sortDirection: 'asc',
       selectedItems: [],
       itemIdToExpandedRowMap: {},
+      filters: {
+        name: '',
+        collection: '',
+        pattern_id: '',
+        pattern: '',
+      }
     };
   }
 
@@ -67,6 +73,14 @@ class TCStixTable extends PureComponent {
       sortDirection,
     });
   };
+
+  filterSTIX() {
+    console.log('Is button working?');
+  };
+
+  editPattern(item) {
+    this.props.history.push(getPath('stix/edit/' + item.id));
+  }
 
   toggleDetails (item) {
     const itemIdToExpandedRowMap = { ...this.state.itemIdToExpandedRowMap };
@@ -104,6 +118,20 @@ class TCStixTable extends PureComponent {
         truncateText: true,
       },
       {
+        width: '60px',
+        render: item => {
+          if (item.is_manually_added === true) {
+            return (
+              <EuiButtonIcon
+                onClick={() => this.editPattern(item)}
+                aria-label="Edit"
+                iconType="documentEdit"
+              />
+          )
+          }
+        }
+      },
+      {
         align: RIGHT_ALIGNMENT,
         width: '40px',
         isExpander: true,
@@ -115,6 +143,7 @@ class TCStixTable extends PureComponent {
           />
         ),
       },
+
     ];
 
     const pagination = {
@@ -142,7 +171,7 @@ class TCStixTable extends PureComponent {
 
           <EuiFlexGroup style={{ maxWidth: 600 }}>
             <EuiFlexItem>
-              <EuiFormRow label="Name" helpText="I am helpful help text!">
+              <EuiFormRow label="Name">
                 <EuiFieldText />
               </EuiFormRow>
             </EuiFlexItem>
@@ -163,7 +192,7 @@ class TCStixTable extends PureComponent {
             </EuiFlexItem>
             <EuiFlexItem grow={false}>
               <EuiFormRow hasEmptyLabelSpace>
-                <EuiButton>Search</EuiButton>
+                <EuiButton onClick={this.filterSTIX}>Search</EuiButton>
               </EuiFormRow>
             </EuiFlexItem>
           </EuiFlexGroup>

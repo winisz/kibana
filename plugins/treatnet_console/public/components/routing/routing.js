@@ -7,6 +7,7 @@ import chrome from 'ui/chrome';
 
 import TCDashboard from '../dashboard/dashboard';
 import TCStixTable from '../stix_table/stix_table';
+import TCStixEdit from '../stix_edit/stix_edit';
 import TCSinkholeTable from '../blocked_domains/blocked_domains';
 
 export const BASE_URL = chrome.addBasePath('/');
@@ -23,8 +24,13 @@ const routes = [
     component: TCDashboard
   },
   {
-    path: '/stix',
+    path: '/stix/edit/',
     exact: false,
+    component: TCStixEdit
+  },
+  {
+    path: '/stix',
+    exact: true,
     component: TCStixTable
   },
   {
