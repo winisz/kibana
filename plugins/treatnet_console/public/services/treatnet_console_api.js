@@ -47,6 +47,12 @@ class BaseTreatnetConsoleAPI {
       headers: this._prepareHeaders()
     });
   }
+
+  _delete (url, data = {}) {
+    return this._http.delete(url, data, {
+      headers: this._prepareHeaders()
+    });
+  }
 }
 
 class StixAPI extends BaseTreatnetConsoleAPI {
@@ -59,7 +65,8 @@ class StixAPI extends BaseTreatnetConsoleAPI {
     return {
       retrieve: (pattern_id) => this._get('stix/patterns/' + pattern_id),
       post: (data) => this._post('stix/patterns/', data),
-      update: (pattern_id, data) => this._patch('stix/patterns/' + pattern_id + '/', data)
+      update: (pattern_id, data) => this._patch('stix/patterns/' + pattern_id + '/', data),
+      delete: (pattern_id) => this._delete('stix/patterns/' + pattern_id + '/')
     }
   }
 }

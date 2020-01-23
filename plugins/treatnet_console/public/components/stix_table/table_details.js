@@ -34,7 +34,7 @@ export class TCStixTableDetails extends PureComponent {
       },
       {
         title: i18n.translate('tnc.stix_table.details.labels', { defaultMessage: 'Labels' }),
-        description: this.pattern.labels.join(', ') || '-',
+        description: this.pattern.labels ? this.pattern.labels.join(', ') || '-' : '',
       },
       {
         title: i18n.translate('tnc.stix_table.details.type', { defaultMessage: 'Type' }),

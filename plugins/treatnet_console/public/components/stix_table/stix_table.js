@@ -39,6 +39,8 @@ class TCStixTable extends PureComponent {
         pattern: '',
       }
     };
+    this.addNew = this.addNew.bind(this);
+    this.deletePattern = this.deletePattern.bind(this);
   }
 
   componentDidMount () {
@@ -74,12 +76,28 @@ class TCStixTable extends PureComponent {
     });
   };
 
-  filterSTIX() {
+  filterSTIX () {
     console.log('Is button working?');
   };
 
-  editPattern(item) {
+  editPattern (item) {
     this.props.history.push(getPath('stix/edit/' + item.id));
+  }
+  deletePattern (item) {
+    TreatnetConsoleAPI.stix.pattern.delete(item.id).then((resp) => {
+      this.loadData();
+    }).catch((error) => {
+      console.log(error);
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      }
+    });
+  }
+
+  addNew () {
+    this.props.history.push(getPath('stix/new/'));
   }
 
   toggleDetails (item) {
@@ -126,6 +144,20 @@ class TCStixTable extends PureComponent {
                 onClick={() => this.editPattern(item)}
                 aria-label="Edit"
                 iconType="documentEdit"
+              />
+          )
+          }
+        }
+      },
+            {
+        width: '60px',
+        render: item => {
+          if (item.is_manually_added === true) {
+            return (
+              <EuiButtonIcon
+                onClick={() => this.deletePattern(item)}
+                aria-label="Delete"
+                iconType="trash"
               />
           )
           }
@@ -193,6 +225,11 @@ class TCStixTable extends PureComponent {
             <EuiFlexItem grow={false}>
               <EuiFormRow hasEmptyLabelSpace>
                 <EuiButton onClick={this.filterSTIX}>Search</EuiButton>
+              </EuiFormRow>
+            </EuiFlexItem>
+            <EuiFlexItem grow={false} >
+              <EuiFormRow hasEmptyLabelSpace>
+                <EuiButton onClick={this.addNew}>New</EuiButton>
               </EuiFormRow>
             </EuiFlexItem>
           </EuiFlexGroup>
