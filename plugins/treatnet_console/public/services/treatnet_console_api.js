@@ -72,6 +72,15 @@ class StixAPI extends BaseTreatnetConsoleAPI {
 }
 
 
+class StixVerifyAPI extends BaseTreatnetConsoleAPI {
+  get pattern () {
+    return {
+      verify: (pattern) => this._post('stix/verify_pattern/', {pattern: pattern})
+    }
+  }
+}
+
+
 class SinkholeAPI extends BaseTreatnetConsoleAPI {
   get patterns () {
     return {
@@ -88,5 +97,6 @@ class SinkholeAPI extends BaseTreatnetConsoleAPI {
 
 export const TreatnetConsoleAPI = {
   stix: new StixAPI(httpClient),
-  sinkhole: new SinkholeAPI(httpClient)
+  sinkhole: new SinkholeAPI(httpClient),
+  verify: new StixVerifyAPI(httpClient),
 };

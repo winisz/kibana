@@ -18,7 +18,8 @@ class TCStixEdit extends TCStixBase {
         id: '',
         type: '',
       },
-      name: 'Edit STIX pattern'
+      name: 'Edit STIX pattern',
+      patternOk: true,
     };
 
     this.save = this.save.bind(this);

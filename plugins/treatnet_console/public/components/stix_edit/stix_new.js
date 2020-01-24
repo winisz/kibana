@@ -17,7 +17,8 @@ class TCStixNew extends TCStixBase {
         id: '',
         type: '',
       },
-      name: 'New STIX pattern'
+      name: 'New STIX pattern',
+      patternOk: true,
     };
 
     this.save = this.save.bind(this);
@@ -26,7 +27,7 @@ class TCStixNew extends TCStixBase {
   loadData () {}
 
   save () {
-    let data = this.get_data()
+    let data = this.get_data();
     TreatnetConsoleAPI.stix.pattern.post(data).then((resp) => {
       this.props.history.push(getPath('/stix'));
     }).catch((error) => {

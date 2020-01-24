@@ -1,4 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
+import { TreatnetConsoleAPI } from '../../services/treatnet_console_api';
 
 import {
   EuiText,
@@ -10,7 +11,9 @@ import {
   EuiFormRow,
   EuiButton,
   EuiFieldText,
+  EuiTextArea
 } from '@elastic/eui';
+import {getPath} from "../routing/routing";
 
 class TCStixBase extends PureComponent {
   constructor(props) {
@@ -18,6 +21,7 @@ class TCStixBase extends PureComponent {
 
     this.modifyText = this.modifyText.bind(this);
     this.get_data = this.get_data.bind(this);
+    this.verify_pattern = this.verify_pattern.bind(this);
   }
 
   modifyText(event) {
@@ -38,6 +42,9 @@ class TCStixBase extends PureComponent {
   }
 
   get_data () {
+    if (!this.state.patternOk) {
+
+    }
     return {
       pattern: this.state.pattern.pattern,
       name: this.state.pattern.name,
@@ -50,7 +57,25 @@ class TCStixBase extends PureComponent {
     };
   }
 
+  verify_pattern (event) {
+    this.modifyText(event);
+    TreatnetConsoleAPI.verify.pattern.verify(event.target.value).then((resp) => {
+      this.setState({patternOk: true});
+    }).catch((error) => {
+      if (error.response) {
+        if (error.response.status === 409) {
+          this.setState({patternOk: false});
+        }
+      }
+    });
+  }
+
   render () {
+    let errors;
+    if (!this.state.patternOk) {
+      errors = ["This is not a valid pattern"];
+    }
+
     return (
       <Fragment>
         <EuiPageContentHeader>
@@ -66,8 +91,8 @@ class TCStixBase extends PureComponent {
               </EuiFormRow>
             </EuiFlexItem>
             <EuiFlexItem grow={true}>
-              <EuiFormRow label="Pattern">
-                <EuiFieldText name="pattern" value={this.state.pattern.pattern} onChange={this.modifyText}/>
+              <EuiFormRow label="Pattern" error={errors} isInvalid={!this.state.patternOk}>
+                <EuiTextArea name="pattern" value={this.state.pattern.pattern} onChange={this.verify_pattern}/>
               </EuiFormRow>
             </EuiFlexItem>
             <EuiFlexItem grow={true}>
@@ -82,7 +107,7 @@ class TCStixBase extends PureComponent {
             </EuiFlexItem>
             <EuiFlexItem grow={true}>
               <EuiFormRow label="Labels">
-                <EuiFieldText name="labels" value={this.state.pattern.labels} onChange={this.modifyText}/>
+                <EuiFieldText name="labels" value='' onChange={this.modifyText}/>
               </EuiFormRow>
             </EuiFlexItem>
             <EuiFlexItem grow={true}>
