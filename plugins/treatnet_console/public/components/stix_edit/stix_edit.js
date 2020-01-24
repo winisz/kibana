@@ -20,6 +20,7 @@ class TCStixEdit extends TCStixBase {
       },
       name: 'Edit STIX pattern',
       patternOk: true,
+      showModal: false
     };
 
     this.save = this.save.bind(this);
@@ -44,6 +45,9 @@ class TCStixEdit extends TCStixBase {
 
   save () {
     let data = this.get_data();
+    if (data === false) {
+      return;
+    }
     TreatnetConsoleAPI.stix.pattern.update(this.state.pattern.id, data).then((resp) => {
       this.props.history.push(getPath('/stix'));
     }).catch((error) => {

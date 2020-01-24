@@ -11,9 +11,12 @@ import {
   EuiFormRow,
   EuiButton,
   EuiFieldText,
-  EuiTextArea
+  EuiTextArea,
+  EuiOverlayMask,
+  EuiModal,
+  EuiModalHeader,
+  EuiModalBody
 } from '@elastic/eui';
-import {getPath} from "../routing/routing";
 
 class TCStixBase extends PureComponent {
   constructor(props) {
@@ -22,6 +25,8 @@ class TCStixBase extends PureComponent {
     this.modifyText = this.modifyText.bind(this);
     this.get_data = this.get_data.bind(this);
     this.verify_pattern = this.verify_pattern.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.showModal = this.showModal.bind(this);
   }
 
   modifyText(event) {
@@ -41,16 +46,26 @@ class TCStixBase extends PureComponent {
     this.loadData();
   }
 
+  showModal () {
+    this.setState({showModal: true});
+  }
+
+  closeModal () {
+    this.setState({showModal: false});
+  }
+
   get_data () {
     if (!this.state.patternOk) {
-
+      this.setState({showModal: true});
+      return false;
     }
+
     return {
       pattern: this.state.pattern.pattern,
       name: this.state.pattern.name,
       pattern_id: this.state.pattern.pattern_id,
       description: this.state.pattern.description,
-      labels: this.state.pattern.labels,
+      //labels: this.state.pattern.labels,
       type: this.state.pattern.type,
       collection: this.state.pattern.collection,
       is_manually_added: true,
@@ -75,6 +90,21 @@ class TCStixBase extends PureComponent {
     if (!this.state.patternOk) {
       errors = ["This is not a valid pattern"];
     }
+    let modal;
+    if (this.state.showModal) {
+      modal = (
+        <EuiOverlayMask>
+            <EuiModal onClose={this.closeModal}>
+              <EuiModalHeader>
+                Error
+              </EuiModalHeader>
+              <EuiModalBody>
+                You can not save not valid pattern
+              </EuiModalBody>
+            </EuiModal>
+          </EuiOverlayMask>
+      )
+    }
 
     return (
       <Fragment>
@@ -84,6 +114,7 @@ class TCStixBase extends PureComponent {
           </EuiTitle>
         </EuiPageContentHeader>
         <EuiPageContentBody>
+
           <EuiFlexGroup style={{ maxWidth: 600 }} direction="column">
             <EuiFlexItem grow={true}>
               <EuiFormRow label="Name">
@@ -106,11 +137,6 @@ class TCStixBase extends PureComponent {
               </EuiFormRow>
             </EuiFlexItem>
             <EuiFlexItem grow={true}>
-              <EuiFormRow label="Labels">
-                <EuiFieldText name="labels" value='' onChange={this.modifyText}/>
-              </EuiFormRow>
-            </EuiFlexItem>
-            <EuiFlexItem grow={true}>
               <EuiFormRow label="Type">
                 <EuiFieldText name="type" value={this.state.pattern.type} onChange={this.modifyText}/>
               </EuiFormRow>
@@ -126,6 +152,7 @@ class TCStixBase extends PureComponent {
               </EuiFormRow>
             </EuiFlexItem>
           </EuiFlexGroup>
+          { modal }
         </EuiPageContentBody>
       </Fragment>
     )
