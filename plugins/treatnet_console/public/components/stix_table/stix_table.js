@@ -36,11 +36,12 @@ class TCStixTable extends PureComponent {
         name: '',
         collection: '',
         pattern_id: '',
-        pattern: '',
       }
     };
     this.addNew = this.addNew.bind(this);
     this.deletePattern = this.deletePattern.bind(this);
+    this.loadData = this.loadData.bind(this);
+    this.setFilterValue = this.setFilterValue.bind(this);
   }
 
   componentDidMount () {
@@ -48,7 +49,7 @@ class TCStixTable extends PureComponent {
   }
 
   loadData () {
-    TreatnetConsoleAPI.stix.patterns.list().then((resp) => {
+    TreatnetConsoleAPI.stix.patterns.list(this.state.filters).then((resp) => {
       this.setState({
         pageOfItems: resp.data.results,
         totalItemCount: resp.data.count,
@@ -63,6 +64,19 @@ class TCStixTable extends PureComponent {
     });
   }
 
+  setFilterValue (event) {
+    let filters = { ...this.state.filters };
+    try {
+      filters[event.target.name] = event.target.value;
+    }
+    catch (e) {
+      if (e instanceof TypeError) {
+        filters.pattern_type = event;
+      }
+    }
+    this.setState({filters: filters});
+  };
+
   onTableChange ({ page = {}, sort = {} }) {
     const { index: pageIndex, size: pageSize } = page;
 
@@ -74,10 +88,6 @@ class TCStixTable extends PureComponent {
       sortField,
       sortDirection,
     });
-  };
-
-  filterSTIX () {
-    console.log('Is button working?');
   };
 
   editPattern (item) {
@@ -204,27 +214,22 @@ class TCStixTable extends PureComponent {
           <EuiFlexGroup style={{ maxWidth: 600 }}>
             <EuiFlexItem>
               <EuiFormRow label="Name">
-                <EuiFieldText />
+                <EuiFieldText name="name" value={this.state.filters.name} onChange={this.setFilterValue}/>
               </EuiFormRow>
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiFormRow label="Collection">
-                <EuiFieldText />
+                <EuiFieldText name="collection" value={this.state.filters.collection} onChange={this.setFilterValue}/>
               </EuiFormRow>
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiFormRow label="Pattern ID">
-                <EuiFieldText />
-              </EuiFormRow>
-            </EuiFlexItem>
-            <EuiFlexItem>
-              <EuiFormRow label="Pattern">
-                <EuiFieldText />
+                <EuiFieldText name="pattern_id" value={this.state.filters.pattern_id} onChange={this.setFilterValue}/>
               </EuiFormRow>
             </EuiFlexItem>
             <EuiFlexItem grow={false}>
               <EuiFormRow hasEmptyLabelSpace>
-                <EuiButton onClick={this.filterSTIX}>Search</EuiButton>
+                <EuiButton onClick={this.loadData}>Search</EuiButton>
               </EuiFormRow>
             </EuiFlexItem>
             <EuiFlexItem grow={false} >

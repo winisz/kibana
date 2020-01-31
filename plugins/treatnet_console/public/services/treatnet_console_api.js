@@ -58,7 +58,13 @@ class BaseTreatnetConsoleAPI {
 class StixAPI extends BaseTreatnetConsoleAPI {
   get patterns () {
     return {
-      list: () => this._get('stix/patterns/')
+      list: (params = {}) => {
+        let url = 'stix/patterns/';
+        if (Object.keys(params).length > 0) {
+          url = url + '?' + querystring.stringify(params);
+        }
+        return this._get(url);
+      }
     };
   }
   get pattern () {

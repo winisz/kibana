@@ -114,43 +114,105 @@ class TCStixBase extends PureComponent {
           </EuiTitle>
         </EuiPageContentHeader>
         <EuiPageContentBody>
-
-          <EuiFlexGroup style={{ maxWidth: 600 }} direction="column">
-            <EuiFlexItem grow={true}>
-              <EuiFormRow label="Name">
-                <EuiFieldText name="name" value={this.state.pattern.name} onChange={this.modifyText}/>
-              </EuiFormRow>
-            </EuiFlexItem>
-            <EuiFlexItem grow={true}>
-              <EuiFormRow label="Pattern" error={errors} isInvalid={!this.state.patternOk}>
-                <EuiTextArea name="pattern" value={this.state.pattern.pattern} onChange={this.verify_pattern}/>
-              </EuiFormRow>
-            </EuiFlexItem>
-            <EuiFlexItem grow={true}>
-              <EuiFormRow label="Pattern ID">
-                <EuiFieldText name="pattern_id" value={this.state.pattern.pattern_id} onChange={this.modifyText}/>
-              </EuiFormRow>
-            </EuiFlexItem>
-            <EuiFlexItem grow={true}>
-              <EuiFormRow label="Description">
-                <EuiFieldText name="description" value={this.state.pattern.description} onChange={this.modifyText}/>
-              </EuiFormRow>
-            </EuiFlexItem>
-            <EuiFlexItem grow={true}>
-              <EuiFormRow label="Type">
-                <EuiFieldText name="type" value={this.state.pattern.type} onChange={this.modifyText}/>
-              </EuiFormRow>
-            </EuiFlexItem>
-            <EuiFlexItem grow={true}>
-              <EuiFormRow label="Collection">
-                <EuiFieldText name="collection" value={this.state.pattern.collection} onChange={this.modifyText}/>
-              </EuiFormRow>
-            </EuiFlexItem>
-            <EuiFlexItem grow={true}>
-              <EuiFormRow>
-                <EuiButton onClick={this.save}>Save</EuiButton>
-              </EuiFormRow>
-            </EuiFlexItem>
+          <EuiFlexGroup>
+            <EuiFlexGroup style={{ maxWidth: 600 }} direction="column">
+              <EuiFlexItem grow={true}>
+                <EuiFormRow label="Name">
+                  <EuiFieldText name="name" value={this.state.pattern.name} onChange={this.modifyText}/>
+                </EuiFormRow>
+              </EuiFlexItem>
+              <EuiFlexItem grow={true}>
+                <EuiFormRow label="Pattern" error={errors} isInvalid={!this.state.patternOk}>
+                  <EuiTextArea name="pattern" value={this.state.pattern.pattern} onChange={this.verify_pattern}/>
+                </EuiFormRow>
+              </EuiFlexItem>
+              <EuiFlexItem grow={true}>
+                <EuiFormRow label="Pattern ID">
+                  <EuiFieldText name="pattern_id" value={this.state.pattern.pattern_id} onChange={this.modifyText}/>
+                </EuiFormRow>
+              </EuiFlexItem>
+              <EuiFlexItem grow={true}>
+                <EuiFormRow label="Description">
+                  <EuiFieldText name="description" value={this.state.pattern.description} onChange={this.modifyText}/>
+                </EuiFormRow>
+              </EuiFlexItem>
+              <EuiFlexItem grow={true}>
+                <EuiFormRow label="Type">
+                  <EuiFieldText name="type" value={this.state.pattern.type} onChange={this.modifyText}/>
+                </EuiFormRow>
+              </EuiFlexItem>
+              <EuiFlexItem grow={true}>
+                <EuiFormRow label="Collection">
+                  <EuiFieldText name="collection" value={this.state.pattern.collection} onChange={this.modifyText}/>
+                </EuiFormRow>
+              </EuiFlexItem>
+              <EuiFlexItem grow={true}>
+                <EuiFormRow>
+                  <EuiButton onClick={this.save}>Save</EuiButton>
+                </EuiFormRow>
+              </EuiFlexItem>
+            </EuiFlexGroup>
+            <EuiFlexGroup direction="column">
+              <EuiFlexItem>
+                <EuiText>
+                  <h3>Instrukcja definiowania wzorców STIX</h3>
+                  <h5>Wzorce STIX mają postać [ <u>expression</u> ] gdzie <u>expression</u> może przyjmować następujące wartości:  </h5>
+                  <ul>
+                    <li><u>query</u></li>
+                    <li><u>expression</u> AND <u>expression</u></li>
+                    <li><u>expression</u> OR <u>expression</u></li>
+                    <li>(<u>expression</u>)</li>
+                  </ul>
+                </EuiText>
+              </EuiFlexItem>
+              <EuiFlexItem>
+                <EuiFlexGroup direction="row">
+                  <EuiText>
+                    <h5>Wartości <u>query</u> to: </h5>
+                    <ul>
+                      <li><u>field</u> <u>operator</u> <u>value</u></li>
+                      <li>network-traffic:protocols IN <u>protocols</u></li>
+                      <li>network-traffic:dst_port <u>operator</u> <u>port_value</u></li>
+                    </ul>
+                  </EuiText>
+                  <EuiText>
+                    <h5>Wartości <u>field</u> to: </h5>
+                    <ul>
+                      <li>domain-name:value</li>
+                      <li>ipv4-addr:value</li>
+                      <li>ipv6-addr:value</li>
+                      <li>http_request-ext:request_method</li>
+                      <li>http-request-ext:request_version</li>
+                      <li>http-request-ext:request_value</li>
+                      <li>url:value</li>
+                      <li>network-traffic:dst_ref.type</li>
+                      <li>network-traffic:dst_ref.value</li>
+                    </ul>
+                  </EuiText>
+                  <EuiText>
+                    <h5>Wartości <u>operator</u> to: </h5>
+                    <ul>
+                      <li>=</li>
+                      <li>!=</li>
+                      <li>&lt;</li>
+                      <li>&lt;=</li>
+                      <li>&gt;</li>
+                      <li>&gt;=</li>
+                      <li>in</li>
+                    </ul>
+                  </EuiText>
+                </EuiFlexGroup>
+              </EuiFlexItem>
+              <EuiFlexItem>
+                <EuiText>
+                  <h4>Przykładowe wzorce:</h4>
+                  <ul>
+                    <li>[domain-name:value = 'test.pl' and (network-traffic:dst_port = 1553 or network-traffic:dst_port = 1554)]</li>
+                    <li>[ipv4-addr:value = '46.183.217.151/32' AND (network-traffic:dst_port = 53 AND network-traffic:protocols IN [udp,dns])]</li>
+                  </ul>
+                </EuiText>
+              </EuiFlexItem>
+            </EuiFlexGroup>
           </EuiFlexGroup>
           { modal }
         </EuiPageContentBody>
