@@ -4,6 +4,7 @@ import chrome from 'ui/chrome';
 import { npStart } from 'ui/new_platform';
 
 const { core } = npStart;
+const querystring = require('querystring');
 
 export const TNC_API_URL = core.injectedMetadata.getInjectedVar('tncApiUrl');
 
@@ -40,16 +41,68 @@ class BaseTreatnetConsoleAPI {
       headers: this._prepareHeaders()
     });
   }
+
+  _patch (url, data = {}) {
+    return this._http.patch(url, data, {
+      headers: this._prepareHeaders()
+    });
+  }
+
+  _delete (url, data = {}) {
+    return this._http.delete(url, data, {
+      headers: this._prepareHeaders()
+    });
+  }
 }
 
 class StixAPI extends BaseTreatnetConsoleAPI {
   get patterns () {
     return {
-      list: () => this._get('stix/patterns/')
+      list: (params = {}) => {
+        let url = 'stix/patterns/';
+        if (Object.keys(params).length > 0) {
+          url = url + '?' + querystring.stringify(params);
+        }
+        return this._get(url);
+      }
+    };
+  }
+  get pattern () {
+    return {
+      retrieve: (pattern_id) => this._get('stix/patterns/' + pattern_id),
+      post: (data) => this._post('stix/patterns/', data),
+      update: (pattern_id, data) => this._patch('stix/patterns/' + pattern_id + '/', data),
+      delete: (pattern_id) => this._delete('stix/patterns/' + pattern_id + '/')
+    }
+  }
+}
+
+
+class StixVerifyAPI extends BaseTreatnetConsoleAPI {
+  get pattern () {
+    return {
+      verify: (pattern) => this._post('stix/verify_pattern/', {pattern: pattern})
+    }
+  }
+}
+
+
+class SinkholeAPI extends BaseTreatnetConsoleAPI {
+  get patterns () {
+    return {
+      list: (params = {}) => {
+        let url = 'sinkhole/patterns/';
+        if (Object.keys(params).length > 0) {
+          url = url + '?' + querystring.stringify(params);
+        }
+        return this._get(url);
+      }
     };
   }
 }
 
 export const TreatnetConsoleAPI = {
-  stix: new StixAPI(httpClient)
+  stix: new StixAPI(httpClient),
+  sinkhole: new SinkholeAPI(httpClient),
+  verify: new StixVerifyAPI(httpClient),
 };

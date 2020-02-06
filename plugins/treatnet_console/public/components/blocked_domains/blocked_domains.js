@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { TreatnetConsoleAPI } from '../../services/treatnet_console_api';
-import { TCStixTableDetails } from './table_details';
+import { TCDomainsTableDetails } from './table_details';
 
 import {
   EuiText,
@@ -14,12 +14,12 @@ import {
   EuiFormRow,
   EuiButton,
   EuiFieldText,
+  EuiSuperSelect,
   EuiSpacer,
 } from '@elastic/eui';
 import { RIGHT_ALIGNMENT } from '@elastic/eui/lib/services';
-import {getPath} from "../routing/routing";
 
-class TCStixTable extends PureComponent {
+class TCDomainsTable extends PureComponent {
   constructor (props) {
     super(props);
 
@@ -28,20 +28,22 @@ class TCStixTable extends PureComponent {
       totalItemCount: -1,
       pageIndex: 0,
       pageSize: 20,
-      sortField: 'name',
+      sortField: 'address',
       sortDirection: 'asc',
       selectedItems: [],
       itemIdToExpandedRowMap: {},
       filters: {
-        name: '',
-        collection: '',
-        pattern_id: '',
-      }
+        address: '',
+        pattern_type: '',
+      },
+      patternTypes: [
+        {value: 'domain', inputDisplay: 'domain'},
+        {value: 'ipv4', inputDisplay: 'ipv4'},
+        {value: 'ipv6', inputDisplay: 'ipv6'},
+      ]
     };
-    this.addNew = this.addNew.bind(this);
-    this.deletePattern = this.deletePattern.bind(this);
-    this.loadData = this.loadData.bind(this);
     this.setFilterValue = this.setFilterValue.bind(this);
+    this.loadData = this.loadData.bind(this);
   }
 
   componentDidMount () {
@@ -49,7 +51,7 @@ class TCStixTable extends PureComponent {
   }
 
   loadData () {
-    TreatnetConsoleAPI.stix.patterns.list(this.state.filters).then((resp) => {
+    TreatnetConsoleAPI.sinkhole.patterns.list(this.state.filters).then((resp) => {
       this.setState({
         pageOfItems: resp.data.results,
         totalItemCount: resp.data.count,
@@ -90,33 +92,13 @@ class TCStixTable extends PureComponent {
     });
   };
 
-  editPattern (item) {
-    this.props.history.push(getPath('stix/edit/' + item.id));
-  }
-  deletePattern (item) {
-    TreatnetConsoleAPI.stix.pattern.delete(item.id).then((resp) => {
-      this.loadData();
-    }).catch((error) => {
-      console.log(error);
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      }
-    });
-  }
-
-  addNew () {
-    this.props.history.push(getPath('stix/new/'));
-  }
-
   toggleDetails (item) {
     const itemIdToExpandedRowMap = { ...this.state.itemIdToExpandedRowMap };
     if (itemIdToExpandedRowMap[item.id]) {
       delete itemIdToExpandedRowMap[item.id];
     } else {
       itemIdToExpandedRowMap[item.id] = (
-        <TCStixTableDetails data={item}/>
+        <TCDomainsTableDetails data={item}/>
       );
     }
     this.setState({ itemIdToExpandedRowMap });
@@ -133,45 +115,8 @@ class TCStixTable extends PureComponent {
 
     const columns = [
       {
-        field: 'name',
-        name: 'Name'
-      },
-      {
-        field: 'collection',
-        name: 'Collection'
-      },
-      {
-        field: 'pattern_id',
-        name: 'Pattern ID',
-        truncateText: true,
-      },
-      {
-        width: '60px',
-        render: item => {
-          if (item.is_manually_added === true) {
-            return (
-              <EuiButtonIcon
-                onClick={() => this.editPattern(item)}
-                aria-label="Edit"
-                iconType="documentEdit"
-              />
-          )
-          }
-        }
-      },
-            {
-        width: '60px',
-        render: item => {
-          if (item.is_manually_added === true) {
-            return (
-              <EuiButtonIcon
-                onClick={() => this.deletePattern(item)}
-                aria-label="Delete"
-                iconType="trash"
-              />
-          )
-          }
-        }
+        field: 'address',
+        name: 'Address'
       },
       {
         align: RIGHT_ALIGNMENT,
@@ -185,7 +130,6 @@ class TCStixTable extends PureComponent {
           />
         ),
       },
-
     ];
 
     const pagination = {
@@ -206,35 +150,25 @@ class TCStixTable extends PureComponent {
       <Fragment>
         <EuiPageContentHeader>
           <EuiTitle>
-            <EuiText><h3>STIX patterns definitions</h3></EuiText>
+            <EuiText><h3>Sinkhole patterns definitions</h3></EuiText>
           </EuiTitle>
         </EuiPageContentHeader>
         <EuiPageContentBody>
 
           <EuiFlexGroup style={{ maxWidth: 600 }}>
             <EuiFlexItem>
-              <EuiFormRow label="Name">
-                <EuiFieldText name="name" value={this.state.filters.name} onChange={this.setFilterValue}/>
+              <EuiFormRow label="Address">
+                <EuiFieldText name="address" value={this.state.filters.address} onChange={this.setFilterValue}/>
               </EuiFormRow>
             </EuiFlexItem>
             <EuiFlexItem>
-              <EuiFormRow label="Collection">
-                <EuiFieldText name="collection" value={this.state.filters.collection} onChange={this.setFilterValue}/>
-              </EuiFormRow>
-            </EuiFlexItem>
-            <EuiFlexItem>
-              <EuiFormRow label="Pattern ID">
-                <EuiFieldText name="pattern_id" value={this.state.filters.pattern_id} onChange={this.setFilterValue}/>
+              <EuiFormRow label="Entry type" >
+                <EuiSuperSelect name="pattern_type" value={this.state.filters.pattern_type} onChange={this.setFilterValue} options={this.state.patternTypes}/>
               </EuiFormRow>
             </EuiFlexItem>
             <EuiFlexItem grow={false}>
               <EuiFormRow hasEmptyLabelSpace>
                 <EuiButton onClick={this.loadData}>Search</EuiButton>
-              </EuiFormRow>
-            </EuiFlexItem>
-            <EuiFlexItem grow={false} >
-              <EuiFormRow hasEmptyLabelSpace>
-                <EuiButton onClick={this.addNew}>New</EuiButton>
               </EuiFormRow>
             </EuiFlexItem>
           </EuiFlexGroup>
@@ -258,4 +192,4 @@ class TCStixTable extends PureComponent {
   }
 }
 
-export default TCStixTable;
+export default TCDomainsTable;

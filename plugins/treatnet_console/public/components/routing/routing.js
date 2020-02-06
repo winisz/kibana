@@ -1,12 +1,15 @@
 import React from 'react';
 import {
   Switch,
-  Route, Redirect
+  Route,
 } from 'react-router-dom';
 import chrome from 'ui/chrome';
 
 import TCDashboard from '../dashboard/dashboard';
 import TCStixTable from '../stix_table/stix_table';
+import TCStixEdit from '../stix_edit/stix_edit';
+import TCStixNew from '../stix_edit/stix_new';
+import TCSinkholeTable from '../blocked_domains/blocked_domains';
 
 export const BASE_URL = chrome.addBasePath('/');
 export const HOME_URL = ''; // HashRouter doesn't require base server url
@@ -22,14 +25,29 @@ const routes = [
     component: TCDashboard
   },
   {
-    path: '/stix',
+    path: '/stix/edit/',
     exact: false,
+    component: TCStixEdit
+  },
+    {
+    path: '/stix/new/',
+    exact: true,
+    component: TCStixNew
+  },
+  {
+    path: '/stix',
+    exact: true,
     component: TCStixTable
   },
   {
     path: '/some_other',
     exact: false,
     component: ExampleComponent
+  },
+  {
+    path: '/sinkhole_patterns',
+    exact: false,
+    component: TCSinkholeTable
   }
 ];
 
